@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <title>Sway Tower</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Sway Tower: a one-tap stacker where the tower sways. Thirteen hand-made worlds, Slide or Drop, thirty medals. Free for iPhone and iPad; no ads, plays offline.">
+<meta name="description" content="Sway Tower: build as high as you can while the tower sways. 13 handcrafted worlds with their own music, Slide and Drop modes, 30 medals. Coming soon to iPhone and iPad: free, with no ads and no tracking.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#3f8fe8">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sway Tower">
-<meta property="og:description" content="A one-tap stacker where the tower sways. Build as high as you can.">
+<meta property="og:description" content="Build as high as you can. The tower sways. A free one-tap stacker with 13 handcrafted worlds.">
 <link rel="icon" type="image/png" href="assets/icon-32.png">
 <link rel="apple-touch-icon" href="assets/icon-180.png">
 <style>
@@ -23,8 +23,8 @@
 
   /* Layout: one column of full-width bands, the game's own story from the day sky down to the
      night: the hero on Sky Islands' day sky with its cloud bank, paper sections, the worlds on the
-     low sky, the music under the stars, then support and the privacy policy. Dark mode is the
-     game's night (the same climb, later). */
+     low sky, the music under the stars and Behind the Music on paper, then support and the
+     privacy policy. Dark mode is the game's night (the same climb, later). */
   :root {
     --bg: #eef6fd;
     --fg: #2a1f3d;
@@ -220,6 +220,8 @@
     text-wrap: balance;
   }
   .hero .lede { max-width: 52ch; }
+  .hero-text { display: grid; gap: 12px; }
+  .kicker { font-weight: 700; font-size: clamp(19px, 2.4vw, 23px); line-height: 1.25; }
   .phone {
     margin: 0;
     width: min(100%, 300px);
@@ -272,7 +274,8 @@
   }
   .beats button:hover { background: var(--paper-2); }
   .beats time { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--link); }
-  .beats small { display: block; color: var(--muted); font-size: 15px; }
+  .beats button > span { font-weight: 600; }
+  .beats small { display: block; color: var(--muted); font-size: 15px; font-weight: 400; }
 
   /* ---- How it plays ---- */
   .cards { display: grid; gap: 24px; }
@@ -291,6 +294,7 @@
   .world img { width: 100%; border: 2.5px solid var(--edge); border-radius: 14px; }
   .world .text { display: grid; gap: 6px; min-width: 0; }
   .world p { color: var(--muted); font-size: 16px; }
+  .world p + p { margin-top: 4px; }
   .when {
     justify-self: start;
     padding: 2px 10px;
@@ -320,18 +324,10 @@
   }
   .night .title { color: var(--sun); -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink); }
   .night .lede { color: #d8def8; }
-  .songs { margin: 0; display: grid; gap: 14px; }
-  .songs > div {
-    display: grid;
-    gap: 4px;
-    padding: 14px 18px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1.5px solid rgba(255, 255, 255, 0.16);
-  }
-  .songs dt { font-weight: 700; color: var(--hl); }
-  .songs dd { margin: 0; color: #e6e9ff; font-size: 16px; }
-  .songs i { font-style: italic; }
+
+  /* ---- Behind the Music: how the songs are made, then each world's song ---- */
+  .prose { display: grid; gap: 14px; max-width: 64ch; }
+  .prose + h3 { margin-top: 10px; }
 
   /* ---- Press kit ---- */
   .facts { margin: 0; display: grid; gap: 0; border: 3px solid var(--edge); border-radius: var(--radius); overflow: hidden; background: var(--paper); }
@@ -426,14 +422,19 @@
       <img class="icon" src="assets/icon.webp" alt="" width="512" height="512">
       <h1 class="hero-title"><img class="logo" src="assets/logo.png" alt="Sway Tower" width="1400" height="220"></h1>
       <p class="tagline">Build as high as you can. The tower sways.</p>
-      <p class="lede">One tap. The bar slides, you drop it, and the overhang is sliced off. The twist: the taller your tower, the more it sways, and the bar you drop doesn't sway with it. Thirteen hand-made worlds with their own music, Slide or Drop, thirty medals. No ads, no tracking, plays offline.</p>
+      <div class="hero-text">
+        <p class="kicker">Simple to learn. Harder to master.</p>
+        <p class="lede">Tap to place each moving bar on your tower. Anything hanging over the edge gets sliced away, leaving less room for your next move. The higher you build, the more your tower sways, making every placement a little more challenging.</p>
+        <p class="lede">Choose between Slide and Drop modes, explore 13 handcrafted worlds with their own music, and earn 30 medals along the way.</p>
+        <p class="lede"><strong>No ads. No tracking. No in-app purchases. Just the game.</strong></p>
+      </div>
       <div class="cta">
         <a class="btn play" href="#trailer">Watch the trailer</a>
-        <span class="btn soon">Coming to the App Store</span>
+        <span class="btn soon">Coming soon to iPhone and iPad.</span>
       </div>
     </div>
     <figure class="phone swaying">
-      <img src="assets/hero.webp" alt="A 59-bar tower of toy blocks at sunset, its top swinging after a sloppy drop; a sliced piece tumbles away" width="660" height="1434">
+      <img src="assets/hero.webp" alt="A 59-bar tower of toy blocks at sunset, its top swinging after an off-center drop; a sliced piece tumbles away" width="660" height="1434">
     </figure>
   </div>
   <svg class="clouds" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
@@ -454,22 +455,22 @@
 <main>
 <section class="band paper" id="trailer">
   <div class="wrap stack">
-    <h2 class="title">Twenty-five seconds of it</h2>
-    <p class="lede">The trailer is the game, rendered by the game: every frame comes from the same code the app runs.</p>
+    <h2 class="title">Sway Tower in 25 Seconds</h2>
+    <p class="lede">Everything you see in this trailer comes straight from the game. Every frame is rendered using the same code that powers Sway Tower.</p>
     <div class="trailer-row">
       <video id="trailer-video" muted autoplay loop playsinline controls preload="metadata" poster="assets/trailer-poster.webp" width="720" height="1560">
         <source src="assets/trailer.mp4" type="video/mp4">
       </video>
       <ol class="beats" aria-label="What the trailer shows; each entry jumps the video there">
-        <li><button type="button" data-t="0">   <time>0:00</time><span>The Title Screen <small>Sky Islands: Home Island. Hit PLAY and pick Slide or Drop.</small></span></button></li>
-        <li><button type="button" data-t="2">   <time>0:02</time><span>The First Drops <small>Two perfect drops, followed by a slice.</small></span></button></li>
-        <li><button type="button" data-t="5.6"> <time>0:06</time><span>PERFECT ×2 … ×5 <small>The pop effect grows as the streak builds.</small></span></button></li>
-        <li><button type="button" data-t="9.2"> <time>0:09</time><span>66 Bars at Sunset <small>Off-center drops send the tower swaying.</small></span></button></li>
-        <li><button type="button" data-t="12.4"><time>0:12</time><span>New Year's Eve <small>The final seconds tick away. MIDNIGHT hits, and fireworks light up the sky.</small></span></button></li>
-        <li><button type="button" data-t="14.3"><time>0:14</time><span>Synthwave <small>A chrome car spins its tires in a smoky burnout.</small></span></button></li>
-        <li><button type="button" data-t="16.2"><time>0:16</time><span>Halloween <small>The House of a Hundred Rooms, with the Headless Horseman riding past the moon.</small></span></button></li>
-        <li><button type="button" data-t="18.1"><time>0:18</time><span>Drop Mode <small>Bars drop onto the top of the swaying tower.</small></span></button></li>
-        <li><button type="button" data-t="20.7"><time>0:21</time><span>The Last Life <small>The tower tips over and explodes.</small></span></button></li>
+        <li><button type="button" data-t="0">   <time>0:00</time><span>Welcome to Sky Islands <small>Start on a floating island, hit PLAY, and choose between Slide and Drop.</small></span></button></li>
+        <li><button type="button" data-t="2">   <time>0:02</time><span>The First Drops <small>Two perfect placements, followed by a close shave as the overhang falls away.</small></span></button></li>
+        <li><button type="button" data-t="5.6"> <time>0:06</time><span>Building a PERFECT Streak <small>The more perfect placements you make, the bigger the celebration.</small></span></button></li>
+        <li><button type="button" data-t="9.2"> <time>0:09</time><span>66 Bars at Sunset <small>The higher you build, the more your tower sways. Even a small mistake can throw things off balance.</small></span></button></li>
+        <li><button type="button" data-t="12.4"><time>0:12</time><span>New Year's Eve <small>The countdown reaches midnight, and fireworks light up the skyline.</small></span></button></li>
+        <li><button type="button" data-t="14.3"><time>0:14</time><span>Synthwave <small>A chrome car spins its tires in a cloud of smoke before tearing off into the neon city.</small></span></button></li>
+        <li><button type="button" data-t="16.2"><time>0:16</time><span>Halloween <small>Climb into the night as the Headless Horseman rides across the moon.</small></span></button></li>
+        <li><button type="button" data-t="18.1"><time>0:18</time><span>Drop Mode <small>Instead of placing bars directly, time their fall to land on the swaying tower.</small></span></button></li>
+        <li><button type="button" data-t="20.7"><time>0:21</time><span>The Last Life <small>One final mistake, and the tower comes crashing down in spectacular fashion.</small></span></button></li>
       </ol>
     </div>
   </div>
@@ -477,43 +478,43 @@
 
 <section class="band" id="how">
   <div class="wrap stack">
-    <h2 class="title">How it plays</h2>
-    <p class="lede">Build as high as you can. That is the whole game; the sway is what makes it one.</p>
+    <h2 class="title">How It Plays</h2>
+    <p class="lede">Build as high as you can. The goal is simple. The sway is what makes it challenging.</p>
     <div class="cards">
       <article class="box card">
         <img src="assets/play/slide.webp" alt="A bar sliding over a 35-bar tower; the overhang of the last drop is sliced off and falling" width="660" height="480" loading="lazy" decoding="async">
         <div class="text">
-          <h3>Tap to drop</h3>
-          <p>A bar slides back and forth over the top of the tower. Tap and it lands. Whatever hangs over the edge is sliced off and tumbles away, and the next bar is that much narrower. The slider starts slow and speeds up as you climb.</p>
+          <h3>Tap to place</h3>
+          <p>A bar glides back and forth over your tower. Tap, and it lands. Anything hanging over the edge gets sliced off and tumbles away, so every slip leaves you a little less room. The bar starts slow and picks up speed as you climb.</p>
         </div>
       </article>
       <article class="box card">
-        <img src="assets/play/sway.webp" alt="The top of a tall tower leaning in mid-sway at sunset" width="660" height="480" loading="lazy" decoding="async">
+        <img src="assets/play/sway.webp" alt="The top of a tall tower swinging out in mid-sway at sunset" width="660" height="480" loading="lazy" decoding="async">
         <div class="text">
           <h3>The tower sways</h3>
-          <p>The taller the tower, the more its top moves, and the bar you drop doesn't move with it. A sloppy drop kicks the tower toward the overhang; clean drops let it settle. A good drop times the slide and the sway together.</p>
+          <p>Down low, your tower barely moves. Build higher and its top starts to swing, while the bar gliding over it doesn't swing along. An off-center placement sends the tower swaying even farther. Clean ones let it settle. The trick is timing the slide and the sway together.</p>
         </div>
       </article>
       <article class="box card">
         <img src="assets/play/drop.webp" alt="Drop mode: a bar falling from one bar above the tower toward its swaying top" width="660" height="480" loading="lazy" decoding="async">
         <div class="text">
           <h3>Slide or Drop</h3>
-          <p>Slide lands the bar where you tap. Drop runs the bar one bar higher and lets it fall onto wherever the top has swayed to by the time it gets there. Same slices, same lives, same slow-to-fast slider; each mode keeps its own best.</p>
+          <p>In Slide, the bar lands right where you tap. In Drop, it glides one bar higher and falls when you tap, so aim for where the swaying top will be when it lands, not where it is now. Same slices, same lives, same slow-to-fast slider, and each mode keeps its own best.</p>
         </div>
       </article>
       <article class="box card">
         <img src="assets/play/perfect.webp" alt="PERFECT ×3 popping over a gold-tinted bar as light bursts along the seam" width="660" height="480" loading="lazy" decoding="async">
         <div class="text">
           <h3>PERFECT</h3>
-          <p>Land the seam exactly and the tower calms, the bar flashes gold, and the sliver you lost last time comes back. Chain them and the chime climbs with the streak: PERFECT ×2, ×3, ×4. On iPhone, every perfect taps the Taptic Engine.</p>
+          <p>Line a bar up exactly and the seam flashes, the bar glows gold, the tower calms down, and a sliver you lost earlier comes back. String them together and the chime climbs with your streak: PERFECT ×2, ×3, ×4. On iPhone, you'll feel every one.</p>
         </div>
       </article>
     </div>
     <div class="box medal-row">
       <img src="assets/medals.png" alt="Six medals on blue and red ribbons: round coins for 5, 50 and 100 bars in bronze, silver and gold, and star-edged seals for perfect streaks of 3, 15 and 30" width="1380" height="242" loading="lazy" decoding="async">
       <div class="text">
-        <h3>Three lives, five ways to go out, thirty medals</h3>
-        <p>A miss costs a life. Lose the third and the top of the tower tips over and blows up, one of five ways: a fireball, fireworks, a shockwave, confetti or popcorn. Thirty medals carry across both modes: tall towers at 5, 10, 15 … 100 bars (round coins) and perfect streaks at 3, 6, 9 … 30 in a row (star-edged seals), bronze to gold. Earned mid-run they only chime; they appear on the game-over card.</p>
+        <h3>3 lives, 5 grand finales, 30 medals</h3>
+        <p>Miss the tower completely and you lose a life. Lose all three and the top of your tower tips over and goes out with a bang, one of five ways: a fireball, fireworks, a shockwave, a burst of confetti or a round of popcorn. Along the way, earn 30 medals in bronze, silver and gold, in either mode: round coins for towers of 5, 10, 15 … 100 bars, and star-edged seals for 3, 6, 9 … 30 perfects in a row. Medals won mid-run just chime softly and wait for you on the game-over card.</p>
       </div>
     </div>
   </div>
@@ -521,60 +522,101 @@
 
 <section class="band low" id="worlds">
   <div class="wrap stack">
-    <h2 class="title">A world for every season</h2>
-    <p class="lede">Thirteen hand-made worlds, each with its own song. The holiday worlds arrive on their dates; any world can be picked any time from Skins. Every one opens with something happening in its first ten seconds, and its story climbs with the tower.</p>
+    <h2 class="title">A World for Every Season</h2>
+    <p class="lede">Explore 13 handcrafted worlds, each with its own music, atmosphere, and little surprises to discover.</p>
+    <p class="lede">From floating islands and neon cities to haunted houses and holiday celebrations, every world has something new to see as your tower climbs higher.</p>
+    <p class="lede">Seasonal worlds appear automatically around their holidays, but you can explore any world whenever you like.</p>
     <div class="worlds">
       <article class="box world">
         <img src="assets/worlds/classic.webp" alt="Sky Islands: a short tower on a floating island, a kite and tractors in the countryside far below" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Sky Islands</h3><span class="when always">The default</span><p>A floating island with roots and vines over a storybook countryside of tractors, a windmill and a river; up through the cloud sea past drifting islands, into a sunset and a starry night with an aurora.</p></div>
+        <div class="text"><h3>Sky Islands</h3><span class="when always">The default</span>
+          <p>Your climb begins on a little floating island, roots and vines dangling beneath it, a spring spilling off its edge and a kite tugging at its string. Far below, tractors plod across a storybook countryside.</p>
+          <p>Build up through the clouds and drift past islands of cottages, windmills and waterfalls. Watch the sun sink into a sea of clouds, then keep going into a starry night of sky lanterns, shimmering aurora and shooting stars.</p>
+        </div>
       </article>
       <article class="box world">
         <img src="assets/worlds/toyblock.webp" alt="Toy Kingdom: a toy rocket climbing off its pad beside a block castle and a wooden rainbow" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Toy Kingdom</h3><span class="when always">Any time</span><p>Block mountains, a wooden rainbow, the King's castle, a fort of marching, drumming toy soldiers, a wind-up mouse, and a toy rocket that blasts off, corkscrews into the clouds and comes back down to land.</p></div>
+        <div class="text"><h3>Toy Kingdom</h3><span class="when always">Any time</span>
+          <p>Step into a kingdom built from toy blocks, where a wooden rainbow arches over the town, toy soldiers drum outside the fort and a freshly wound mouse waddles off toward the gate.</p>
+          <p>Ten seconds in, the toy rocket blasts off its pad, corkscrews into the clouds and comes back down to land, ready to go again. Climb above the block clouds to a sleepy moon, a ringed toy planet and constellations shaped like toys.</p>
+        </div>
       </article>
       <article class="box world">
         <img src="assets/worlds/neon.webp" alt="Synthwave: a chrome car doing a burnout in front of an arcade under a striped neon sun" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Synthwave</h3><span class="when always">Any time</span><p>Hot pink, neon orange and cyan over a sunset grid and palms. Every so often an 80s driver walks out of the arcade, takes the chrome car for a burnout and donuts, and roars off into the city.</p></div>
+        <div class="text"><h3>Synthwave</h3><span class="when always">Any time</span>
+          <p>Cruise into an 80s sunset, where a striped sun glows over a neon grid, two tall palms frame the view and an arcade lights up the roadside.</p>
+          <p>Every so often the driver strolls out of the arcade, hops into the chrome car, lays down a smoky burnout, spins donuts out on the grid and races off into the city. Climb past the sunset into a violet night of neon clouds, flamingos and a ringed planet.</p>
+        </div>
       </article>
       <article class="box world">
         <img src="assets/worlds/neon-cyber.webp" alt="Cyberpunk: a street racer peeling out through a puddle in a rainy neon megacity" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Cyberpunk</h3><span class="when always">Any time</span><p>A rainy tech-noir megacity in neon blue, electric purple and magenta: holo signs, flying cars, wet reflections, and a street racer who peels out through a puddle and soaks the umbrella walker.</p></div>
+        <div class="text"><h3>Cyberpunk</h3><span class="when always">Any time</span>
+          <p>Welcome to a rain-soaked megacity after dark, where neon signs shimmer on wet streets, a hover taxi idles overhead and searchlights sweep through the smog.</p>
+          <p>Keep an eye on the street racer: moments after you start, it peels out through a puddle and soaks the umbrella walker, then comes back around to do it all again. Climb past glowing towers, drones and sky gardens, up through the smog and into a clear, starry night.</p>
+        </div>
       </article>
       <article class="box world">
-        <img src="assets/worlds/halloween.webp" alt="Halloween: a tall tower of crooked haunted storeys under a huge moon as the Headless Horseman gallops across it" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Halloween</h3><span class="when">Oct 1 – Nov 1</span><p>Main Street on Halloween night, crooked and spindly: the tower is the House of a Hundred Rooms, a lit room in every storey, while the Headless Horseman gallops past the moon and skeleton hands pop out of the graves. Climb through a storm over the spires into a spiral sky of upside-down islands.</p></div>
+        <img src="assets/worlds/halloween.webp" alt="Halloween: a tall tower of candy-colored bars under a huge moon as the Headless Horseman gallops across it" width="660" height="1434" loading="lazy" decoding="async">
+        <div class="text"><h3>Halloween</h3><span class="when">Oct 1 – Nov 1</span>
+          <p>Welcome to Main Street on Halloween night, where crooked buildings, restless graves, and strange shadows set the scene.</p>
+          <p>Your tower climbs in candy colors (pumpkins, bats, candy corn and crows) past glowing windows into the night. Watch the Headless Horseman race across the moon as you climb through storm clouds and into a surreal sky of upside-down islands.</p>
+        </div>
       </article>
       <article class="box world">
         <img src="assets/worlds/thanksgiving.webp" alt="Thanksgiving: townsfolk seated at a long backyard table beside a farmhouse, a turkey and falling leaves" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Thanksgiving</h3><span class="when">Nov 2 – 30</span><p>A cozy small town in a hollow: a farmhouse porch, a backyard table the townsfolk set, clear and set again, a turkey farm, falling leaves, rolling fields and a V of geese.</p></div>
+        <div class="text"><h3>Thanksgiving</h3><span class="when">Nov 2 – 30</span>
+          <p>Settle into a cozy hollow on a late-November afternoon, where a big orange tree lets go of its leaves, turkeys peck about the yard and a white church steeple peeks out from the little town beyond.</p>
+          <p>Out on the lawn, the townsfolk carry out the plates, the turkey and a pie, sit down to supper, clear it away and set the table all over again. Climb as the sun goes down, a pale moon rises and the geese head south.</p>
+        </div>
       </article>
       <article class="box world">
         <img src="assets/worlds/christmas.webp" alt="Christmas: a horse-drawn carriage passing a snowy Victorian street of candlelit townhouses" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Christmas</h3><span class="when">Dec 1 – 27</span><p>Dickens's snowy London at dusk, like a 1950s Christmas card: candlelit townhouses, Scrooge &amp; Marley's counting house, gas lamps, carolers, a cathedral dome in the fog and a horse-drawn carriage on its rounds.</p></div>
+        <div class="text"><h3>Christmas</h3><span class="when">Dec 1 – 27</span>
+          <p>Step into Dickens's snowy London at dusk, drawn like a 1950s Christmas card, where candles glow in the windows, gas lamps warm the snow and carolers sing by lantern light.</p>
+          <p>Find Scrooge &amp; Marley's sooty counting house, spot Marley's face in the door knocker and watch the carriage go round and round your tower. Then climb through the snowy night into a golden Christmas morning.</p>
+        </div>
       </article>
       <article class="box world">
         <img src="assets/worlds/newyear.webp" alt="New Year's Eve: MIDNIGHT on an Art Deco screen under a finale of fireworks over the skyline" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>New Year's Eve</h3><span class="when">Dec 28 – Jan 6</span><p>Midnight at Gatsby's: 1920s Manhattan in midnight blue and gold, Deco spires, a mansion party across the water with a green light at the end of the dock, and a real countdown to midnight. The ball drops, the fireworks fly.</p></div>
+        <div class="text"><h3>New Year's Eve</h3><span class="when">Dec 28 – Jan 6</span>
+          <p>Ring in the New Year at a 1920s Manhattan party, where gold searchlights sweep over Art Deco towers and a mansion party glows across the bay, a green light at the end of its dock.</p>
+          <p>Count down the final minute as the ball drops, then watch the skyline erupt in fireworks at midnight. A champagne tower sparkles on the terrace, giant billboard eyes blink across the water, and the party goes on all night as you climb.</p>
+        </div>
       </article>
       <article class="box world">
         <img src="assets/worlds/mardigras.webp" alt="Mardi Gras: a papier-mâché parade float rolling past a reviewing stand on a French Quarter street" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Mardi Gras</h3><span class="when">The six days to Fat Tuesday</span><p>Bourbon Street in purple, green and gold: lacy iron balconies, a brass band's second line, a papier-mâché parade of jesters and floats, beads thrown from the galleries, and at night the King Gator rising out of the clouds.</p></div>
+        <div class="text"><h3>Mardi Gras</h3><span class="when">The six days to Fat Tuesday</span>
+          <p>Grab a spot on Bourbon Street, where lacy iron balconies drip with beads and bunting, a family tosses necklaces down to the kids below and the corner café serves up beignets.</p>
+          <p>Within seconds the parade rolls by: a brass band second-lining, papier-mâché floats with masked riders and a jester on stilts. Climb into the night for fireworks over the river as the Carnival Queen and the grinning King Gator rise out of the clouds.</p>
+        </div>
       </article>
       <article class="box world">
         <img src="assets/worlds/valentines.webp" alt="Valentine's Day: a heart-shaped fountain in a rose garden before Paris rooftops, two swans on the water" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Valentine's Day</h3><span class="when">Feb 7 – 15</span><p>Paris, the city of love, in Art Nouveau: a heart-shaped fountain in a rose garden, two swans making a heart, a cherub who comes alive to pop a balloon, a café, and the rooftops of Paris standing above the clouds.</p></div>
+        <div class="text"><h3>Valentine's Day</h3><span class="when">Feb 7 – 15</span>
+          <p>Fall for Paris at the golden hour, where your tower rises from a heart-shaped fountain in a rose garden, beside a chocolatier, a florist and a little café.</p>
+          <p>Watch a marble cherub spring to life and pop a heart balloon with an arrow, two swans glide together into a heart, and a couple swap a card at the café. Climb through the evening mist to find Paris standing above the clouds, with fireworks of hearts after dark.</p>
+        </div>
       </article>
       <article class="box world">
         <img src="assets/worlds/stpatricks.webp" alt="St. Patrick's Day: a rainbow over an old round tower ending in a pot of gold beside a thatched cottage" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>St. Patrick's Day</h3><span class="when">Mar 10 – 18</span><p>The west of Ireland, drawn like an illuminated manuscript: an old round tower under a rainbow that ends in a pot of gold, a leprechaun who brings it and keeps watch, sheep in patchwork fields, sea cliffs and an old box player's jigs.</p></div>
+        <div class="text"><h3>St. Patrick's Day</h3><span class="when">Mar 10 – 18</span>
+          <p>Wander into the west of Ireland in springtime, drawn like an illuminated manuscript, where a rainbow arches over an old round tower and lambs race through the pasture.</p>
+          <p>A leprechaun hauls his pot of gold to the rainbow's end and keeps a careful eye on it, while an old box player strikes up a jig and raises a toast to the gold. Then climb through a spring shower to a second little rainbow and a starry night.</p>
+        </div>
       </article>
       <article class="box world">
         <img src="assets/worlds/july4.webp" alt="Independence Day: a parade with a fire-truck float passing a bandstand on a small-town Main Street" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Independence Day</h3><span class="when">Jun 28 – Jul 7</span><p>Main Street on the Fourth, like a vintage postcard: a parade with a marching band, a fire-truck float and Uncle Sam on stilts, a picnic and a lemonade stand, and fireworks over the rooftops at night.</p></div>
+        <div class="text"><h3>Independence Day</h3><span class="when">Jun 28 – Jul 7</span>
+          <p>Celebrate the Fourth on a small-town Main Street straight off a vintage postcard, with flags over the storefronts, bunting on the bandstand and lemonade on the picnic lawn.</p>
+          <p>The parade marches in right away: a drum major and band, a fire-truck float full of waving kids and Uncle Sam on stilts. Climb into a summer sky of towering clouds and stunt planes, then stay for the fireworks blooming over the rooftops after dark.</p>
+        </div>
       </article>
       <article class="box world">
         <img src="assets/worlds/oktoberfest.webp" alt="Oktoberfest: a striped festival tent with the band on its stand, a horse-drawn wagon and the Alps behind" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Oktoberfest</h3><span class="when">Sep 12 – 30</span><p>The festival meadow under the Alps: an oompah band in a striped festival tent, a maypole, pretzels and gingerbread hearts, draft horses with their wagon, a Ferris wheel and an onion-domed church.</p></div>
+        <div class="text"><h3>Oktoberfest</h3><span class="when">Sep 12 – 30</span>
+          <p>Join the festival on a meadow under the Alps, where your tower stands on the bandstand of a blue-and-white striped tent, the oompah band plays beside it and the stalls are piled with pretzels and gingerbread hearts.</p>
+          <p>Draft horses pull a garlanded barrel wagon past, a waitress carries a tray of foaming steins and a pair of dancers slap out a schuhplattler. Climb as the valley mist rolls in, the Ferris wheel lights up at dusk and a pretzel balloon drifts by on the way to a starry Alpine night.</p>
+        </div>
       </article>
     </div>
   </div>
@@ -582,30 +624,43 @@
 
 <section class="band night" id="music">
   <div class="wrap stack">
-    <h2 class="title">Original music on real instruments</h2>
-    <p class="lede">One theme, a waltz in six-eight, arranged thirteen ways. The cartoon worlds' songs are rendered from CC0 recordings of real instruments (saxophone, French horn, euphonium, piano and drums wherever they fit a world); the two neon worlds are built on our own synths (Cyberpunk puts a real tenor sax over them). Every song keeps pace with the game: past 40 bars it speeds up with the slider, time-stretched so the pitch never changes.</p>
-    <dl class="songs">
-      <div><dt>Sky Islands</dt><dd>The theme itself: the waltz.</dd></div>
-      <div><dt>Toy Kingdom</dt><dd>A toy-box march in the spirit of Victor Herbert's <i>March of the Toys</i> (1903): a wind-up key and music box, a toy-piano march with snare and tuba, a horn-and-euphonium trio, a toy battle, a grandioso.</dd></div>
-      <div><dt>Synthwave</dt><dd>French electro in the spirit of Pyramid's <i>The Hall</i> EP, on our own synths.</dd></div>
-      <div><dt>Cyberpunk</dt><dd>Slow tech-noir in D minor, after the 1980s tech-noir film scores: a real tenor sax on the theme over our synth bass, pads and gated drums, with distant thunder.</dd></div>
-      <div><dt>Halloween</dt><dd>The waltz with spooky effects layered on it, like <i>The Haunted Fun House</i>: a werewolf howl, a rattlesnake and a hiss, creaking doors, chains, thunder, owls, a cackle.</dd></div>
+    <h2 class="title">A Song for Every World</h2>
+    <p class="lede">One original melody, reimagined for 13 different worlds. Sky Islands plays it as a sweeping waltz, Toy Kingdom winds it up into a toy-box march, Mardi Gras hands it to a New Orleans brass band, New Year's Eve dances it to a Roaring Twenties foxtrot and St. Patrick's Day kicks it into a set of Irish jigs. Every world has a song of its own, and the music keeps pace with you: build past 40 bars and it speeds up right along with the slider.</p>
+  </div>
+</section>
+
+<section class="band paper" id="behind-the-music">
+  <div class="wrap stack">
+    <h2 class="title">Behind the Music</h2>
+    <div class="prose">
+      <p>Every song grows from the same theme, a waltz in six-eight, arranged from scratch for its world. The cartoon worlds are played on real instruments, rendered note by note from CC0 recordings, which are free for anyone to use, and every recording is tuned so the melody sits just right.</p>
+      <p>Saxophone, French horn, euphonium, piano and drums are Turk White's favorite instruments, so you'll hear them wherever they fit a world. There is no CC0 recording of a euphonium to be had, so the one you hear is a trombone and a tuba playing the same notes, mellowed into one warm voice.</p>
+      <p>The two neon worlds run on a synthesizer and drum machine built for the game, and Cyberpunk lays a real tenor sax over them. The same synth supplies the few sounds no recording could, like Halloween's werewolf howl and Toy Kingdom's music box.</p>
+      <p>When the music picks up speed past 40 bars, it climbs step by step, up to about a third faster. Each song is time-stretched as it goes, so the pitch never changes, and each step waits for the next bar line, so the beat never stumbles.</p>
+    </div>
+    <h3>World by world</h3>
+    <dl class="facts">
+      <div><dt>Sky Islands</dt><dd>The theme itself: the waltz every other song is built on.</dd></div>
+      <div><dt>Toy Kingdom</dt><dd>A toy-box march in the spirit of Victor Herbert's <i>March of the Toys</i> (1903): a wind-up key and a music box, a toy-piano march with snare and tuba, a horn-and-euphonium trio, a toy battle and a grandioso.</dd></div>
+      <div><dt>Synthwave</dt><dd>French electro in the spirit of Pyramid's <i>The Hall</i> EP, all on the game's own synths.</dd></div>
+      <div><dt>Cyberpunk</dt><dd>Slow tech-noir in D minor, after the 1980s tech-noir film scores: a real tenor sax carries the theme over synth bass, pads and gated drums, with thunder rolling in the distance.</dd></div>
+      <div><dt>Halloween</dt><dd>The waltz with spooky effects layered on top, like <i>The Haunted Fun House</i>: a werewolf howl, a rattlesnake and a hiss, creaking doors, chains, thunder, owls and a cackle.</dd></div>
       <div><dt>Thanksgiving</dt><dd>A jazz waltz in the spirits of <i>A Charlie Brown Thanksgiving</i> (a piano trio: bluesy grace notes, block chords, walking bass, a soft kit) and Nat King Cole's "Autumn Leaves" records (a close-miked tenor sax ballad over strings, horn answers). Style only: none of their tunes.</dd></div>
       <div><dt>Christmas</dt><dd>A symphonic-pops carol medley in the spirit of Leroy Anderson's <i>A Christmas Festival</i>, built on our theme with our own order and links; public-domain carols only.</dd></div>
-      <div><dt>New Year's Eve</dt><dd>A 1920s foxtrot and Charleston in the spirit of the <i>Jeeves and Wooster</i> theme (never its melody), a party crowd with clinks, corks and cheers, and a ten-second countdown into "Auld Lang Syne".</dd></div>
-      <div><dt>Mardi Gras</dt><dd>A New Orleans second-line brass band: trumpet lead, clarinet, trombone tailgate, sousaphone, banjo strums, second-line drums, a tenor sax chorus and a honky-tonk piano break.</dd></div>
+      <div><dt>New Year's Eve</dt><dd>A 1920s foxtrot and Charleston in the spirit of the <i>Jeeves and Wooster</i> theme (never its melody), with a party crowd's clinks, corks and cheers, and a ten-second countdown into "Auld Lang Syne".</dd></div>
+      <div><dt>Mardi Gras</dt><dd>A New Orleans second-line brass band: trumpet lead, clarinet, trombone tailgate, sousaphone, banjo-style strums, second-line drums, a tenor sax chorus and a honky-tonk piano break.</dd></div>
       <div><dt>Valentine's Day</dt><dd>A Parisian valse musette (accordion lead, clarinet and violin answers, guitar) around a slow-dance verse where the tenor sax croons the theme over strings and harp.</dd></div>
-      <div><dt>St. Patrick's Day</dt><dd>A pub-session set of jigs: whistle, fiddle, accordion, bodhrán, guitar.</dd></div>
+      <div><dt>St. Patrick's Day</dt><dd>A pub-session set of jigs on whistle, fiddle, accordion, bodhrán and guitar.</dd></div>
       <div><dt>Independence Day</dt><dd>A Sousa-style quickstep in six-eight: cornets with the piccolo above, horn after-beats, a euphonium countermelody, a trio and a grandioso.</dd></div>
-      <div><dt>Oktoberfest</dt><dd>Bavarian brass: tuba oom-pah with euphonium and trombone, a clarinet and trumpet duet, accordion, glockenspiel, a polka, and the crowd's cheer.</dd></div>
+      <div><dt>Oktoberfest</dt><dd>Bavarian brass: tuba oom-pah with euphonium and trombone, a clarinet and trumpet duet, accordion, glockenspiel, a polka, and a toast with the crowd's cheer and clinking steins.</dd></div>
     </dl>
   </div>
 </section>
 
 <section class="band sky center" id="get">
   <div class="wrap stack">
-    <h2 class="title">Coming to iPhone and iPad</h2>
-    <p class="lede">Free. No ads, no in-app purchases, no account. Everything ships in the app, so it plays offline.</p>
+    <h2 class="title">Coming soon to iPhone and iPad</h2>
+    <p class="lede">Sway Tower is free. No ads, no tracking, no in-app purchases, not even an account. Every world and every song ships inside the app, so you can play anywhere, Airplane Mode included.</p>
     <div class="cta" style="justify-content: center">
       <span class="btn soon">Coming to the App Store</span>
     </div>
@@ -627,8 +682,8 @@
 
 <section class="band paper" id="press">
   <div class="wrap stack">
-    <h2 class="title">Press kit</h2>
-    <p class="lede">The facts and the art, free to use as they are. Everything shown here is a real render of the game.</p>
+    <h2 class="title">Press Kit</h2>
+    <p class="lede">Everything you need to share or review Sway Tower. Every picture and every frame here is a real render of the game.</p>
     <dl class="facts">
       <div><dt>Name</dt><dd>Sway Tower</dd></div>
       <div><dt>Developer</dt><dd>Turk White, independent: design, code, art and music</dd></div>
@@ -636,7 +691,7 @@
       <div><dt>Version</dt><dd>1.0.0, coming to the App Store</dd></div>
       <div><dt>Price</dt><dd>Free. No ads, no in-app purchases</dd></div>
       <div><dt>Category</dt><dd>Games › Arcade (Casual), rated 12+ (13+ on iOS 26 and later)</dd></div>
-      <div><dt>Worlds</dt><dd>Thirteen, each with its own song: Sky Islands, Toy Kingdom, Synthwave, Cyberpunk, and nine holidays from Halloween to Oktoberfest</dd></div>
+      <div><dt>Worlds</dt><dd>13, each with its own song: Sky Islands, Toy Kingdom, Synthwave, Cyberpunk, and nine holidays from Halloween to Oktoberfest</dd></div>
       <!-- GAME CENTER (off in 1.0): uncomment for the version that turns it on (store/LISTING.md)
       <div><dt>Game Center</dt><dd>Optional: leaderboards for Slide and Drop, and the thirty medals as achievements</dd></div>
       -->
@@ -655,30 +710,30 @@
       <img src="assets/shots/06-newyear.webp" alt="App Store screenshot: Count down to midnight" width="660" height="1434" loading="lazy" decoding="async">
       <img src="assets/shots/10-medals.webp" alt="App Store screenshot: Thirty medals to win, the Achievements screen" width="660" height="1434" loading="lazy" decoding="async">
     </div>
-    <p class="note">Take what you need from this page: the wordmark (<a href="assets/logo.png">PNG, transparent</a>), the <a href="assets/trailer.mp4">trailer</a> and the pictures above. For the full kit (the 1024 px icon, the ten App Store screenshots at full size with and without captions, every world in play, the trailer at 886 × 1920), a review build, or any world's art, write to the address above.</p>
+    <p class="note">Help yourself to anything on this page: the wordmark (<a href="assets/logo.png">PNG, transparent</a>), the <a href="assets/trailer.mp4">trailer</a> and the pictures above. For the full kit (the 1024 px icon, the ten App Store screenshots at full size with and without captions, every world in play, the trailer at 886 × 1920), a review build, or any world's art, write to the address above.</p>
   </div>
 </section>
 
 <section class="band" id="support">
   <div class="wrap stack narrow">
     <h2 class="title">Support</h2>
-    <p>Sway Tower is made by one person. For a bug, a question or something you'd like to see, write to <span class="email"><a href="mailto:swaytower.support@gmail.com">swaytower.support@gmail.com</a><button class="copy" type="button" data-copy="swaytower.support@gmail.com">Copy</button></span> and say which device and which world.</p>
+    <p>Sway Tower is made by one person, Turk White, who would love to hear from you. Found a bug, have a question, or want to suggest something? Write to <span class="email"><a href="mailto:swaytower.support@gmail.com">swaytower.support@gmail.com</a><button class="copy" type="button" data-copy="swaytower.support@gmail.com">Copy</button></span> and mention which device you're on and which world you were playing.</p>
     <div class="faq">
       <details>
         <summary>How do I play?</summary>
-        <p>Tap PLAY, then tap anywhere to drop the bar (or press Space on a keyboard). It slides back and forth over the tower; whatever hangs over the edge is sliced off, so the next bar is narrower. Land it exactly for a PERFECT: the tower calms and the sliver comes back. A drop that misses the tower costs one of three lives. The taller the tower, the more it sways, so time the slide and the sway together.</p>
+        <p>Tap PLAY, then tap anywhere to place the bar (or press Space on a keyboard). The bar glides back and forth over your tower, and anything hanging over the edge gets sliced away, so the next bar is narrower. Line it up exactly for a PERFECT: the tower calms down and a lost sliver comes back. Miss the tower completely and you lose one of your 3 lives. The higher you build, the more the tower sways, so time the slide and the sway together.</p>
       </details>
       <details>
-        <summary>What is the difference between Slide and Drop?</summary>
-        <p>Pick the mode on the title screen. In Slide the bar runs across the top of the tower and lands where you tap. In Drop it runs one bar higher and falls when you tap, landing on wherever the swaying top has moved to by then. The rules, slices, lives and speed are the same; each mode keeps its own best.</p>
+        <summary>What's the difference between Slide and Drop?</summary>
+        <p>Pick your mode on the title screen. In Slide, the bar glides across the top of the tower and lands right where you tap. In Drop, it glides one bar higher and falls when you tap, landing wherever the swaying top has moved to by then, so aim for where the tower will be. The rules, slices, lives and speed are the same, and each mode keeps its own best.</p>
       </details>
       <details>
         <summary>How do I turn off the music, the sound effects or the haptics?</summary>
-        <p>Open Settings: the Skins button on the title screen, or the Settings button at the top left during a run. Under Sound, switch Music, Effects and Haptics on or off (Haptics shows on devices with a Taptic Engine). Under Motion, Reduce motion stops the screen shake and flashes; Auto follows your device's Reduce Motion setting. The Sound button on the title screen turns the music and the effects off or on together.</p>
+        <p>Open Settings with the Skins button on the title screen, or with the Settings button at the top left during a run. Under Sound, switch Music, Effects and Haptics on or off (Haptics appears on devices with a Taptic Engine). Under Motion, Reduce motion stops the screen shake and flashes; Auto follows your device's own Reduce Motion setting. The Sound button on the title screen turns the music and the effects off or on together.</p>
       </details>
       <details>
         <summary>How do I pick a world?</summary>
-        <p>Skins on the title screen lists all thirteen. Auto, the default, switches to a holiday world on its dates and shows Sky Islands (listed as Classic) the rest of the year; pick any world to keep it.</p>
+        <p>Tap Skins on the title screen to see all 13. Auto, the default, brings out each holiday world around its holiday and shows Sky Islands (listed as Classic) the rest of the year. Pick any world to stay there.</p>
       </details>
       <!-- GAME CENTER (off in 1.0): uncomment for the version that turns it on (store/LISTING.md)
       <details>
@@ -688,11 +743,11 @@
       -->
       <details>
         <summary>Where are my bests and medals saved?</summary>
-        <p>On your device only, in the app's own storage. There is no account and nothing is sent anywhere, so they don't move between devices; your device's own backup (iCloud or a computer) includes them. Deleting the app deletes them.</p>
+        <p>Right on your device, in the app's own storage. There's no account and nothing is sent anywhere, so they don't move between devices, but your device's own backup (iCloud or a computer) includes them. Deleting the app deletes them.</p>
       </details>
       <details>
         <summary>Does it need the internet?</summary>
-        <p>No. Everything, the music included, ships in the app, so it plays in Airplane Mode.</p>
+        <p>Not at all. Every world and every song ships inside the app, so it plays happily in Airplane Mode.</p>
       </details>
     </div>
   </div>

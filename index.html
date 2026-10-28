@@ -307,6 +307,44 @@
     text-transform: uppercase;
   }
   .when.always { background: var(--grass); color: var(--ink); }
+  /* A world's song: a play pill beside its season (the script below shows it where the browser
+     plays AAC), and how far the song has got along the card's foot. */
+  .world { position: relative; overflow: hidden; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; }
+  .song {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 40px;
+    padding: 4px 14px 4px 4px;
+    border: 2.5px solid var(--ink);
+    border-radius: 999px;
+    background: linear-gradient(#fff3b8, var(--hl) 45%, #f2c24a);
+    color: var(--ink);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.45), inset 0 -4px 0 rgba(0, 0, 0, 0.14), 0 4px 0 var(--ink);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .song[hidden] { display: none; }
+  .song:hover { filter: brightness(1.04); }
+  .song:active { transform: translateY(2px); box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.45), inset 0 -4px 0 rgba(0, 0, 0, 0.14), 0 2px 0 var(--ink); }
+  .song .disc { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--ink); }
+  .song svg { width: 12px; height: 12px; fill: #ffffff; }
+  .song .i-pause, .song[aria-pressed="true"] .i-play { display: none; }
+  .song[aria-pressed="true"] .i-pause { display: inline; }
+  .song:focus-visible { outline-color: var(--link); }
+  /* Pressed, and the song is still on its way: the disc breathes until it plays. */
+  .song.loading .disc { animation: song-wait 0.7s ease-in-out infinite alternate; }
+  @keyframes song-wait { to { opacity: 0.4; } }
+  .progress { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: var(--line); opacity: 0; pointer-events: none; }
+  .progress i { display: block; height: 100%; background: var(--link); transform: scaleX(0); transform-origin: 0 50%; }
+  .world.heard .progress { opacity: 1; }
 
   /* ---- Music: the night sky ---- */
   .night {
@@ -324,6 +362,7 @@
   }
   .night .title { color: var(--sun); -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink); }
   .night .lede { color: #d8def8; }
+  .night a { color: var(--hl); }
 
   /* ---- Behind the Music: how the songs are made, then each world's song ---- */
   .prose { display: grid; gap: 14px; max-width: 64ch; }
@@ -403,6 +442,7 @@
   @media (prefers-reduced-motion: reduce) {
     .swaying { animation: none; }
     .btn, .copy { transition: none; }
+    .song.loading .disc { animation: none; opacity: 0.6; }
   }
 </style>
 </head>
@@ -529,94 +569,133 @@
     <div class="worlds">
       <article class="box world">
         <img src="assets/worlds/classic.webp" alt="Sky Islands: a short tower on a floating island, a kite and tractors in the countryside far below" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Sky Islands</h3><span class="when always">The default</span>
+        <div class="text"><h3>Sky Islands</h3>
+          <div class="tags"><span class="when always">The default</span>
+            <button class="song" type="button" data-song="assets/music/classic.m4a" aria-pressed="false" aria-label="Play the song: Sky Islands" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Your climb begins on a little floating island, roots and vines dangling beneath it, a spring spilling off its edge and a kite tugging at its string. Far below, tractors plod across a storybook countryside.</p>
           <p>Build up through the clouds and drift past islands of cottages, windmills and waterfalls. Watch the sun sink into a sea of clouds, then keep going into a starry night of sky lanterns, shimmering aurora and shooting stars.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/toyblock.webp" alt="Toy Kingdom: a toy rocket climbing off its pad beside a block castle and a wooden rainbow" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Toy Kingdom</h3><span class="when always">Any time</span>
+        <div class="text"><h3>Toy Kingdom</h3>
+          <div class="tags"><span class="when always">Any time</span>
+            <button class="song" type="button" data-song="assets/music/toyblock.m4a" aria-pressed="false" aria-label="Play the song: Toy Kingdom" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Step into a kingdom built from toy blocks, where a wooden rainbow arches over the town, toy soldiers drum outside the fort and a freshly wound mouse waddles off toward the gate.</p>
           <p>Ten seconds in, the toy rocket blasts off its pad, corkscrews into the clouds and comes back down to land, ready to go again. Climb above the block clouds to a sleepy moon, a ringed toy planet and constellations shaped like toys.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/neon.webp" alt="Synthwave: a chrome car doing a burnout in front of an arcade under a striped neon sun" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Synthwave</h3><span class="when always">Any time</span>
+        <div class="text"><h3>Synthwave</h3>
+          <div class="tags"><span class="when always">Any time</span>
+            <button class="song" type="button" data-song="assets/music/neon.m4a" aria-pressed="false" aria-label="Play the song: Synthwave" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Cruise into an 80s sunset, where a striped sun glows over a neon grid, two tall palms frame the view and an arcade lights up the roadside.</p>
           <p>Every so often the driver strolls out of the arcade, hops into the chrome car, lays down a smoky burnout, spins donuts out on the grid and races off into the city. Climb past the sunset into a violet night of neon clouds, flamingos and a ringed planet.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/neon-cyber.webp" alt="Cyberpunk: a street racer peeling out through a puddle in a rainy neon megacity" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Cyberpunk</h3><span class="when always">Any time</span>
+        <div class="text"><h3>Cyberpunk</h3>
+          <div class="tags"><span class="when always">Any time</span>
+            <button class="song" type="button" data-song="assets/music/neon-cyber.m4a" aria-pressed="false" aria-label="Play the song: Cyberpunk" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Welcome to a rain-soaked megacity after dark, where neon signs shimmer on wet streets, a hover taxi idles overhead and searchlights sweep through the smog.</p>
           <p>Keep an eye on the street racer: moments after you start, it peels out through a puddle and soaks the umbrella walker, then comes back around to do it all again. Climb past glowing towers, drones and sky gardens, up through the smog and into a clear, starry night.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/halloween.webp" alt="Halloween: a tall tower of candy-colored bars under a huge moon as the Headless Horseman gallops across it" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Halloween</h3><span class="when">Oct 1 – Nov 1</span>
+        <div class="text"><h3>Halloween</h3>
+          <div class="tags"><span class="when">Oct 1 – Nov 1</span>
+            <button class="song" type="button" data-song="assets/music/halloween.m4a" aria-pressed="false" aria-label="Play the song: Halloween" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Welcome to Main Street on Halloween night, where crooked buildings, restless graves, and strange shadows set the scene.</p>
           <p>Your tower climbs in candy colors (pumpkins, bats, candy corn and crows) past glowing windows into the night. Watch the Headless Horseman race across the moon as you climb through storm clouds and into a surreal sky of upside-down islands.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/thanksgiving.webp" alt="Thanksgiving: townsfolk seated at a long backyard table beside a farmhouse, a turkey and falling leaves" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Thanksgiving</h3><span class="when">Nov 2 – 30</span>
+        <div class="text"><h3>Thanksgiving</h3>
+          <div class="tags"><span class="when">Nov 2 – 30</span>
+            <button class="song" type="button" data-song="assets/music/thanksgiving.m4a" aria-pressed="false" aria-label="Play the song: Thanksgiving" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Settle into a cozy hollow on a late-November afternoon, where a big orange tree lets go of its leaves, turkeys peck about the yard and a white church steeple peeks out from the little town beyond.</p>
           <p>Out on the lawn, the townsfolk carry out the plates, the turkey and a pie, sit down to supper, clear it away and set the table all over again. Climb as the sun goes down, a pale moon rises and the geese head south.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/christmas.webp" alt="Christmas: a horse-drawn carriage passing a snowy Victorian street of candlelit townhouses" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Christmas</h3><span class="when">Dec 1 – 27</span>
+        <div class="text"><h3>Christmas</h3>
+          <div class="tags"><span class="when">Dec 1 – 27</span>
+            <button class="song" type="button" data-song="assets/music/christmas.m4a" aria-pressed="false" aria-label="Play the song: Christmas" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Step into Dickens's snowy London at dusk, drawn like a 1950s Christmas card, where candles glow in the windows, gas lamps warm the snow and carolers sing by lantern light.</p>
           <p>Find Scrooge &amp; Marley's sooty counting house, spot Marley's face in the door knocker and watch the carriage go round and round your tower. Then climb through the snowy night into a golden Christmas morning.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/newyear.webp" alt="New Year's Eve: MIDNIGHT on an Art Deco screen under a finale of fireworks over the skyline" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>New Year's Eve</h3><span class="when">Dec 28 – Jan 6</span>
+        <div class="text"><h3>New Year's Eve</h3>
+          <div class="tags"><span class="when">Dec 28 – Jan 6</span>
+            <button class="song" type="button" data-song="assets/music/newyear.m4a" aria-pressed="false" aria-label="Play the song: New Year's Eve" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Ring in the New Year at a 1920s Manhattan party, where gold searchlights sweep over Art Deco towers and a mansion party glows across the bay, a green light at the end of its dock.</p>
           <p>Count down the final minute as the ball drops, then watch the skyline erupt in fireworks at midnight. A champagne tower sparkles on the terrace, giant billboard eyes blink across the water, and the party goes on all night as you climb.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/mardigras.webp" alt="Mardi Gras: a papier-mâché parade float rolling past a reviewing stand on a French Quarter street" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Mardi Gras</h3><span class="when">The six days to Fat Tuesday</span>
+        <div class="text"><h3>Mardi Gras</h3>
+          <div class="tags"><span class="when">The six days to Fat Tuesday</span>
+            <button class="song" type="button" data-song="assets/music/mardigras.m4a" aria-pressed="false" aria-label="Play the song: Mardi Gras" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Grab a spot on Bourbon Street, where lacy iron balconies drip with beads and bunting, a family tosses necklaces down to the kids below and the corner café serves up beignets.</p>
           <p>Within seconds the parade rolls by: a brass band second-lining, papier-mâché floats with masked riders and a jester on stilts. Climb into the night for fireworks over the river as the Carnival Queen and the grinning King Gator rise out of the clouds.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/valentines.webp" alt="Valentine's Day: a heart-shaped fountain in a rose garden before Paris rooftops, two swans on the water" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Valentine's Day</h3><span class="when">Feb 7 – 15</span>
+        <div class="text"><h3>Valentine's Day</h3>
+          <div class="tags"><span class="when">Feb 7 – 15</span>
+            <button class="song" type="button" data-song="assets/music/valentines.m4a" aria-pressed="false" aria-label="Play the song: Valentine's Day" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Fall for Paris at the golden hour, where your tower rises from a heart-shaped fountain in a rose garden, beside a chocolatier, a florist and a little café.</p>
           <p>Watch a marble cherub spring to life and pop a heart balloon with an arrow, two swans glide together into a heart, and a couple swap a card at the café. Climb through the evening mist to find Paris standing above the clouds, with fireworks of hearts after dark.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/stpatricks.webp" alt="St. Patrick's Day: a rainbow over an old round tower ending in a pot of gold beside a thatched cottage" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>St. Patrick's Day</h3><span class="when">Mar 10 – 18</span>
+        <div class="text"><h3>St. Patrick's Day</h3>
+          <div class="tags"><span class="when">Mar 10 – 18</span>
+            <button class="song" type="button" data-song="assets/music/stpatricks.m4a" aria-pressed="false" aria-label="Play the song: St. Patrick's Day" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Wander into the west of Ireland in springtime, drawn like an illuminated manuscript, where a rainbow arches over an old round tower and lambs race through the pasture.</p>
           <p>A leprechaun hauls his pot of gold to the rainbow's end and keeps a careful eye on it, while an old box player strikes up a jig and raises a toast to the gold. Then climb through a spring shower to a second little rainbow and a starry night.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/july4.webp" alt="Independence Day: a parade with a fire-truck float passing a bandstand on a small-town Main Street" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Independence Day</h3><span class="when">Jun 28 – Jul 7</span>
+        <div class="text"><h3>Independence Day</h3>
+          <div class="tags"><span class="when">Jun 28 – Jul 7</span>
+            <button class="song" type="button" data-song="assets/music/july4.m4a" aria-pressed="false" aria-label="Play the song: Independence Day" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Celebrate the Fourth on a small-town Main Street straight off a vintage postcard, with flags over the storefronts, bunting on the bandstand and lemonade on the picnic lawn.</p>
           <p>The parade marches in right away: a drum major and band, a fire-truck float full of waving kids and Uncle Sam on stilts. Climb into a summer sky of towering clouds and stunt planes, then stay for the fireworks blooming over the rooftops after dark.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/oktoberfest.webp" alt="Oktoberfest: a striped festival tent with the band on its stand, a horse-drawn wagon and the Alps behind" width="660" height="1434" loading="lazy" decoding="async">
-        <div class="text"><h3>Oktoberfest</h3><span class="when">Sep 12 – 30</span>
+        <div class="text"><h3>Oktoberfest</h3>
+          <div class="tags"><span class="when">Sep 12 – 30</span>
+            <button class="song" type="button" data-song="assets/music/oktoberfest.m4a" aria-pressed="false" aria-label="Play the song: Oktoberfest" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
           <p>Join the festival on a meadow under the Alps, where your tower stands on the bandstand of a blue-and-white striped tent, the oompah band plays beside it and the stalls are piled with pretzels and gingerbread hearts.</p>
           <p>Draft horses pull a garlanded barrel wagon past, a waitress carries a tray of foaming steins and a pair of dancers slap out a schuhplattler. Climb as the valley mist rolls in, the Ferris wheel lights up at dusk and a pretzel balloon drifts by on the way to a starry Alpine night.</p>
         </div>
+        <span class="progress" aria-hidden="true"><i></i></span>
       </article>
     </div>
   </div>
@@ -626,6 +705,7 @@
   <div class="wrap stack">
     <h2 class="title">A Song for Every World</h2>
     <p class="lede">One original melody, reimagined for 13 different worlds. Sky Islands plays it as a sweeping waltz, Toy Kingdom winds it up into a toy-box march, Mardi Gras hands it to a New Orleans brass band, New Year's Eve dances it to a Roaring Twenties foxtrot and St. Patrick's Day kicks it into a set of Irish jigs. Every world has a song of its own, and the music keeps pace with you: build past 40 bars and it speeds up right along with the slider.</p>
+    <p class="lede">Press play on <a href="#worlds">any world above</a> to hear its song.</p>
   </div>
 </section>
 
@@ -841,6 +921,241 @@
         } else {
           fallback();
         }
+      });
+    }
+  })();
+</script>
+<script>
+  // The worlds' songs. Each world card's button plays that world's song from the game
+  // (assets/music/<id>.m4a). Nothing loads until a button is pressed, and one song plays at a
+  // time: pressing another stops the first and takes it back to the start. Each file is the
+  // song's seamless loop with a quarter second of its other end on either side (PAD / sr in the
+  // game's src/audio/music/manifest.json), so a song plays from PAD to PAD before the file's end,
+  // then stops and goes back to its start; a plain media element can't loop it without a gap.
+  // Where the page sets the volume (not on iPhone and iPad, where only the device's buttons do),
+  // songs fade in and out, and fade away over their last moments. A song paused or played from
+  // outside the page (media keys, the lock screen) moves its button too.
+  (function () {
+    var PAD = 0.25;
+    var FADE = 0.3;
+    var END_FADE = 1.5;
+    var probe = window.Audio ? new Audio() : null;
+    if (!probe || !probe.canPlayType || !probe.canPlayType('audio/mp4; codecs="mp4a.40.2"')) return;
+    var canFade = false;
+    try {
+      probe.volume = 0.5;
+      canFade = Math.abs(probe.volume - 0.5) < 0.01;
+    } catch (err) {}
+    var video = document.getElementById("trailer-video");
+    var players = [];
+    var current = null;
+    var frame = 0;
+
+    var now = function () { return (window.performance && performance.now ? performance.now() : Date.now()) / 1000; };
+    var clamp = function (x) { return x < 0 ? 0 : x > 1 ? 1 : x; };
+
+    var buttons = document.querySelectorAll("button.song");
+    for (var i = 0; i < buttons.length; i++) players.push(player(buttons[i]));
+
+    // The trailer and a song never play over each other.
+    if (video) {
+      var hush = function () { if (current && current.state === "playing" && !video.paused && !video.muted) pause(current); };
+      video.addEventListener("play", hush);
+      video.addEventListener("volumechange", hush);
+    }
+
+    function player(btn) {
+      var card = btn.closest(".world");
+      var label = btn.querySelector(".label");
+      var p = {
+        btn: btn,
+        card: card,
+        bar: card ? card.querySelector(".progress i") : null,
+        label: label,
+        text: label ? label.textContent : "",
+        url: btn.getAttribute("data-song"),
+        play: btn.getAttribute("aria-label"),
+        pause: btn.getAttribute("aria-label").replace(/^Play the song/, "Pause"),
+        audio: null,
+        state: "idle",
+        waiting: false,
+        level: canFade ? 0 : 1,
+        ramp: null
+      };
+      btn.addEventListener("click", function () { press(p); });
+      btn.hidden = false;
+      return p;
+    }
+
+    function press(p) {
+      if (p === current && p.state === "playing") return pause(p);
+      if (current && current !== p) stop(current);
+      start(p);
+    }
+
+    // The song's media element, made on its first press.
+    function media(p) {
+      if (p.audio) return p.audio;
+      var a = new Audio();
+      a.preload = "auto";
+      a.src = p.url + "#t=" + PAD;
+      a.addEventListener("loadedmetadata", function () { if (a.currentTime < PAD - 0.05) a.currentTime = PAD; });
+      a.addEventListener("timeupdate", function () { update(p); });
+      a.addEventListener("ended", function () { finish(p); });
+      a.addEventListener("error", function () { if (p.state !== "idle") finish(p); });
+      // Paused or played from outside the page (a keyboard's media keys, Control Center or the
+      // lock screen, a phone call, headphones taken out): the button follows. The checks skip
+      // the page's own pauses and plays, whose events can arrive a moment late.
+      a.addEventListener("pause", function () { if (p.state === "playing" && a.paused && !a.ended) held(p); });
+      a.addEventListener("play", function () { if (p.state !== "playing" && !p.ramp && !a.paused) resumed(p); });
+      // Pressed but not yet playing (the file still on its way, or the network stalls).
+      a.addEventListener("waiting", function () { wait(p, true); });
+      a.addEventListener("playing", function () { wait(p, false); });
+      p.audio = a;
+      return a;
+    }
+
+    function start(p) {
+      var a = media(p);
+      if (p.state === "idle") rewind(p);
+      p.state = "playing";
+      p.waiting = a.readyState < 3;
+      current = p;
+      show(p);
+      if (video && !video.paused && !video.muted) video.pause();
+      apply(p);
+      ramp(p, 1, null);
+      var started = a.play();
+      if (started && started.catch) started.catch(function () { if (p.state === "playing" && a.paused) finish(p); });
+      tick();
+    }
+
+    function pause(p) {
+      p.state = "paused";
+      show(p);
+      ramp(p, 0, function () { p.audio.pause(); });
+    }
+
+    // Another song takes over: this one fades out and goes back to its start.
+    function stop(p) {
+      p.state = "idle";
+      if (current === p) current = null;
+      show(p);
+      ramp(p, 0, function () { p.audio.pause(); rewind(p); });
+    }
+
+    // The song's end (or a file that won't play): straight back to the start.
+    function finish(p) {
+      p.state = "idle";
+      if (current === p) current = null;
+      p.ramp = null;
+      p.level = canFade ? 0 : 1;
+      if (p.audio) {
+        p.audio.pause();
+        rewind(p);
+      }
+      show(p);
+    }
+
+    // Paused from outside: as if its button had been pressed (play carries on from here).
+    function held(p) {
+      p.state = "paused";
+      p.ramp = null;
+      p.level = canFade ? 0 : 1;
+      apply(p);
+      show(p);
+    }
+
+    // Played from outside: it becomes the song playing, and any other stops.
+    function resumed(p) {
+      if (current && current !== p) stop(current);
+      p.state = "playing";
+      current = p;
+      p.level = 1;
+      apply(p);
+      show(p);
+      if (video && !video.paused && !video.muted) video.pause();
+      tick();
+    }
+
+    function wait(p, on) {
+      p.waiting = on;
+      p.btn.classList.toggle("loading", on && p.state === "playing");
+    }
+
+    function rewind(p) {
+      try { if (p.audio.readyState > 0) p.audio.currentTime = PAD; } catch (err) {}
+    }
+
+    function show(p) {
+      var on = p.state === "playing";
+      p.btn.classList.toggle("loading", on && p.waiting);
+      p.btn.setAttribute("aria-pressed", on ? "true" : "false");
+      p.btn.setAttribute("aria-label", on ? p.pause : p.play);
+      if (p.label) p.label.textContent = on ? "Pause" : p.text;
+      if (p.card) {
+        p.card.classList.toggle("playing", on);
+        p.card.classList.toggle("heard", p.state !== "idle");
+      }
+      if (p.state === "idle" && p.bar) p.bar.style.transform = "scaleX(0)";
+    }
+
+    // Fades: the song's level eases to `to` over FADE, then `done` runs (also in a background tab).
+    function ramp(p, to, done) {
+      if (!canFade) {
+        p.ramp = null;
+        if (done) done();
+        return;
+      }
+      var r = { from: p.level, to: to, at: now(), done: done };
+      p.ramp = r;
+      setTimeout(function () { if (p.ramp === r) settle(p); }, FADE * 1000 + 50);
+      tick();
+    }
+
+    function settle(p) {
+      var r = p.ramp;
+      p.ramp = null;
+      p.level = r.to;
+      apply(p);
+      if (r.done) r.done();
+    }
+
+    // Where the song stops: PAD before the file's end (while the length is unknown, nowhere yet).
+    function end(p) {
+      var d = p.audio.duration;
+      return isFinite(d) && d > 2 * PAD ? d - PAD : Infinity;
+    }
+
+    function apply(p) {
+      if (!canFade || !p.audio) return;
+      p.audio.volume = clamp(p.level * clamp((end(p) - p.audio.currentTime) / END_FADE));
+    }
+
+    function update(p) {
+      var a = p.audio;
+      if (!a) return;
+      if (p.ramp) {
+        var k = (now() - p.ramp.at) / FADE;
+        if (k >= 1) settle(p);
+        else p.level = p.ramp.from + (p.ramp.to - p.ramp.from) * k;
+      }
+      var stopAt = end(p);
+      if (p.state === "playing" && a.currentTime >= stopAt) return finish(p);
+      apply(p);
+      if (p.bar && p.state !== "idle") p.bar.style.transform = "scaleX(" + clamp((a.currentTime - PAD) / (stopAt - PAD)) + ")";
+    }
+
+    function tick() {
+      if (frame) return;
+      frame = requestAnimationFrame(function () {
+        frame = 0;
+        var busy = false;
+        for (var j = 0; j < players.length; j++) {
+          update(players[j]);
+          if (players[j].ramp || players[j].state === "playing") busy = true;
+        }
+        if (busy) tick();
       });
     }
   })();

@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <title>Sway Tower</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Sway Tower: build as high as you can while the tower sways. 13 handcrafted worlds with their own music, Slide and Drop modes, 30 medals. Coming soon to iPhone and iPad: free, with no ads and no tracking.">
+<meta name="description" content="Sway Tower: build as high as you can while the tower sways. 13 worlds, each with its own song. Coming soon to iPhone and iPad, free, with no ads, no tracking and no in-app purchases.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#3f8fe8">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sway Tower">
-<meta property="og:description" content="Build as high as you can before it topples. A free one-tap stacker with 13 handcrafted worlds.">
+<meta property="og:description" content="Build as high as you can before it topples. A free one-tap stacker with 13 worlds, each with its own song.">
 <link rel="icon" type="image/png" href="assets/icon-32.png">
 <link rel="apple-touch-icon" href="assets/icon-180.png">
 <style>
@@ -21,10 +21,9 @@
   @font-face { font-family: "Fredoka"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/fonts/fredoka-600.woff2") format("woff2"); }
   @font-face { font-family: "Fredoka"; font-style: normal; font-weight: 700; font-display: swap; src: url("assets/fonts/fredoka-700.woff2") format("woff2"); }
 
-  /* Layout: one column of full-width bands, the game's own story from the day sky down to the
-     night: the hero on Sky Islands' day sky with its cloud bank, paper sections, the worlds on the
-     low sky, the music under the stars and Behind the Music on paper, then support and the
-     privacy policy. Dark mode is the game's night (the same climb, later). */
+  /* Layout: one column of full-width bands: the hero on Sky Islands' day sky with its cloud
+     bank, the trailer on paper, the worlds and their songs on the low sky, then the press kit,
+     support and the privacy policy. Dark mode is the game's night (the same climb, later). */
   :root {
     --bg: #eef6fd;
     --fg: #2a1f3d;
@@ -38,9 +37,6 @@
     --sky-low: #c4e8fb;
     --cloud: #f4f9ff;
     --cloud-shade: #c3d8f2;
-    --night-top: #0b1030;
-    --night-low: #263380;
-    --star: #fff8e0;
     --ui: #2f58c8;
     --ui-deep: #2a4fb4;
     --link: #2f58c8;
@@ -221,7 +217,6 @@
   }
   .hero .lede { max-width: 52ch; }
   .hero-text { display: grid; gap: 12px; }
-  .kicker { font-weight: 700; font-size: clamp(19px, 2.4vw, 23px); line-height: 1.25; }
   .phone {
     margin: 0;
     width: min(100%, 300px);
@@ -247,8 +242,8 @@
   .hero { padding-bottom: clamp(110px, 16vw, 180px); }
 
   /* ---- Trailer ---- */
-  .trailer-row { display: grid; gap: 28px; align-items: start; }
   video {
+    justify-self: center;
     width: min(100%, 340px);
     aspect-ratio: 720 / 1560;
     border: 3px solid var(--edge);
@@ -256,37 +251,6 @@
     background: var(--sky-mid);
     box-shadow: 0 8px 0 var(--edge);
   }
-  .beats { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-  .beats button {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 4.5ch 1fr;
-    gap: 12px;
-    align-items: baseline;
-    padding: 8px 12px;
-    border: 0;
-    border-radius: 12px;
-    background: transparent;
-    color: var(--fg);
-    font: inherit;
-    text-align: left;
-    cursor: pointer;
-  }
-  .beats button:hover { background: var(--paper-2); }
-  .beats time { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--link); }
-  .beats button > span { font-weight: 600; }
-  .beats small { display: block; color: var(--muted); font-size: 15px; font-weight: 400; }
-
-  /* ---- How it plays ---- */
-  .cards { display: grid; gap: 24px; }
-  .card { overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
-  .card img { width: 100%; border-bottom: 3px solid var(--edge); }
-  .card .text { display: grid; gap: 8px; padding: 18px 20px 24px; }
-  .card p { color: var(--muted); }
-  .medal-row { display: grid; gap: 20px; align-items: center; padding: 22px 22px 26px; background: var(--paper-2); }
-  .medal-row img { width: 100%; max-width: 420px; justify-self: center; }
-  .medal-row .text { display: grid; gap: 8px; }
-  .medal-row p { color: var(--muted); }
 
   /* ---- Worlds ---- */
   .worlds { display: grid; gap: 20px; }
@@ -295,6 +259,7 @@
   .world .text { display: grid; gap: 6px; min-width: 0; }
   .world p { color: var(--muted); font-size: 16px; }
   .world p + p { margin-top: 4px; }
+  .world strong { color: var(--fg); }
   .when {
     justify-self: start;
     padding: 2px 10px;
@@ -345,28 +310,6 @@
   .progress { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: var(--line); opacity: 0; pointer-events: none; }
   .progress i { display: block; height: 100%; background: var(--link); transform: scaleX(0); transform-origin: 0 50%; }
   .world.heard .progress { opacity: 1; }
-
-  /* ---- Music: the night sky ---- */
-  .night {
-    background:
-      radial-gradient(1.5px 1.5px at 12% 18%, var(--star) 50%, transparent 52%),
-      radial-gradient(1.5px 1.5px at 28% 62%, var(--star) 50%, transparent 52%),
-      radial-gradient(2px 2px at 44% 30%, var(--star) 50%, transparent 52%),
-      radial-gradient(1.5px 1.5px at 61% 74%, var(--star) 50%, transparent 52%),
-      radial-gradient(2px 2px at 73% 22%, var(--star) 50%, transparent 52%),
-      radial-gradient(1.5px 1.5px at 86% 58%, var(--star) 50%, transparent 52%),
-      radial-gradient(1.5px 1.5px at 94% 12%, var(--star) 50%, transparent 52%),
-      radial-gradient(1.5px 1.5px at 6% 80%, var(--star) 50%, transparent 52%),
-      linear-gradient(var(--night-top), var(--night-low));
-    color: #f4f9ff;
-  }
-  .night .title { color: var(--sun); -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink); }
-  .night .lede { color: #d8def8; }
-  .night a { color: var(--hl); }
-
-  /* ---- Behind the Music: how the songs are made, then each world's song ---- */
-  .prose { display: grid; gap: 14px; max-width: 64ch; }
-  .prose + h3 { margin-top: 10px; }
 
   /* ---- Press kit ---- */
   .facts { margin: 0; display: grid; gap: 0; border: 3px solid var(--edge); border-radius: var(--radius); overflow: hidden; background: var(--paper); }
@@ -430,14 +373,11 @@
     .world .text { padding: 4px 6px 6px; }
     .shots { grid-template-columns: repeat(3, 1fr); }
     .facts > div { grid-template-columns: 9.5em 1fr; gap: 12px; }
-    .cards { grid-template-columns: repeat(2, 1fr); }
   }
   @media (min-width: 800px) {
     .hero-grid { grid-template-columns: 1.15fr 0.85fr; }
     .phone { width: min(100%, 320px); }
-    .trailer-row { grid-template-columns: 340px 1fr; }
     .worlds { grid-template-columns: repeat(3, 1fr); }
-    .medal-row { grid-template-columns: minmax(0, 400px) 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
     .swaying { animation: none; }
@@ -447,11 +387,10 @@
 </style>
 </head>
 <body>
-<a class="skip" href="#how">Skip to the game</a>
+<a class="skip" href="#main">Skip to the content</a>
 
 <header class="band sky hero">
   <nav class="wrap topnav" aria-label="On this page">
-    <a href="#how">How it plays</a>
     <a href="#worlds">Worlds</a>
     <a href="#press">Press</a>
     <a href="#support">Support</a>
@@ -463,10 +402,8 @@
       <h1 class="hero-title"><img class="logo" src="assets/logo.png" alt="Sway Tower" width="1400" height="220"></h1>
       <p class="tagline">Build as high as you can before it topples.</p>
       <div class="hero-text">
-        <p class="kicker">Simple to learn. Harder to master.</p>
-        <p class="lede">Tap to place each moving bar on your tower. Anything hanging over the edge gets sliced away, leaving less room for your next move. The higher you build, the more your tower sways, making every placement a little more challenging.</p>
-        <p class="lede">Choose between Slide and Drop modes, explore 13 handcrafted worlds with their own music, and earn 30 medals along the way.</p>
-        <p class="lede"><strong>No ads. No tracking. No in-app purchases. Just the game.</strong></p>
+        <p class="lede">The higher it climbs, the more it sways.</p>
+        <p class="lede"><strong>No ads. No tracking. No in-app purchases.</strong></p>
       </div>
       <div class="cta">
         <a class="btn play" href="#trailer">Watch the trailer</a>
@@ -492,88 +429,28 @@
   </svg>
 </header>
 
-<main>
-<section class="band paper" id="trailer">
+<main id="main">
+<section class="band paper center" id="trailer">
   <div class="wrap stack">
     <h2 class="title">Sway Tower in 25 Seconds</h2>
-    <p class="lede">Everything you see in this trailer comes straight from the game. Every frame is rendered using the same code that powers Sway Tower.</p>
-    <div class="trailer-row">
-      <video id="trailer-video" muted autoplay loop playsinline controls preload="metadata" poster="assets/trailer-poster.webp" width="720" height="1560">
-        <source src="assets/trailer.mp4" type="video/mp4">
-      </video>
-      <ol class="beats" aria-label="What the trailer shows; each entry jumps the video there">
-        <li><button type="button" data-t="0">   <time>0:00</time><span>Welcome to Sky Islands <small>Start on a floating island, hit PLAY, and choose between Slide and Drop.</small></span></button></li>
-        <li><button type="button" data-t="2">   <time>0:02</time><span>The First Drops <small>Two perfect placements, followed by a close shave as the overhang falls away.</small></span></button></li>
-        <li><button type="button" data-t="5.6"> <time>0:06</time><span>Building a PERFECT Streak <small>The more perfect placements you make, the bigger the celebration.</small></span></button></li>
-        <li><button type="button" data-t="9.2"> <time>0:09</time><span>66 Bars at Sunset <small>The higher you build, the more your tower sways. Even a small mistake can throw things off balance.</small></span></button></li>
-        <li><button type="button" data-t="12.4"><time>0:12</time><span>New Year's Eve <small>The countdown reaches midnight, and fireworks light up the skyline.</small></span></button></li>
-        <li><button type="button" data-t="14.3"><time>0:14</time><span>Synthwave <small>A chrome car spins its tires in a cloud of smoke before tearing off into the neon city.</small></span></button></li>
-        <li><button type="button" data-t="16.2"><time>0:16</time><span>Halloween <small>Climb into the night as the Headless Horseman rides across the moon.</small></span></button></li>
-        <li><button type="button" data-t="18.1"><time>0:18</time><span>Drop Mode <small>Instead of placing bars directly, time their fall to land on the swaying tower.</small></span></button></li>
-        <li><button type="button" data-t="20.7"><time>0:21</time><span>The Last Life <small>One final mistake, and the tower comes crashing down in spectacular fashion.</small></span></button></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="how">
-  <div class="wrap stack">
-    <h2 class="title">How It Plays</h2>
-    <p class="lede">Build as high as you can. The goal is simple. The sway is what makes it challenging.</p>
-    <div class="cards">
-      <article class="box card">
-        <img src="assets/play/slide.webp" alt="A bar sliding over a 35-bar tower; the overhang of the last drop is sliced off and falling" width="660" height="480" loading="lazy" decoding="async">
-        <div class="text">
-          <h3>Tap to place</h3>
-          <p>A bar glides back and forth over your tower. Tap, and it lands. Anything hanging over the edge gets sliced off and tumbles away, so every slip leaves you a little less room. The bar starts slow and picks up speed as you climb.</p>
-        </div>
-      </article>
-      <article class="box card">
-        <img src="assets/play/sway.webp" alt="The top of a tall tower swinging out in mid-sway at sunset" width="660" height="480" loading="lazy" decoding="async">
-        <div class="text">
-          <h3>The tower sways</h3>
-          <p>Down low, your tower barely moves. Build higher and its top starts to swing, while the bar gliding over it doesn't swing along. An off-center placement sends the tower swaying even farther. Clean ones let it settle. The trick is timing the slide and the sway together.</p>
-        </div>
-      </article>
-      <article class="box card">
-        <img src="assets/play/drop.webp" alt="Drop mode: a bar falling from one bar above the tower toward its swaying top" width="660" height="480" loading="lazy" decoding="async">
-        <div class="text">
-          <h3>Slide or Drop</h3>
-          <p>In Slide, the bar lands right where you tap. In Drop, it glides one bar higher and falls when you tap, so aim for where the swaying top will be when it lands, not where it is now. Same slices, same lives, same slow-to-fast slider, and each mode keeps its own best.</p>
-        </div>
-      </article>
-      <article class="box card">
-        <img src="assets/play/perfect.webp" alt="PERFECT ×3 popping over a gold-tinted bar as light bursts along the seam" width="660" height="480" loading="lazy" decoding="async">
-        <div class="text">
-          <h3>PERFECT</h3>
-          <p>Line a bar up exactly and the seam flashes, the bar glows gold, the tower calms down, and a sliver you lost earlier comes back. String them together and the chime climbs with your streak: PERFECT ×2, ×3, ×4. On iPhone, you'll feel every one.</p>
-        </div>
-      </article>
-    </div>
-    <div class="box medal-row">
-      <img src="assets/medals.png" alt="Six medals on blue and red ribbons: round coins for 5, 50 and 100 bars in bronze, silver and gold, and star-edged seals for perfect streaks of 3, 15 and 30" width="1380" height="242" loading="lazy" decoding="async">
-      <div class="text">
-        <h3>3 lives, 5 grand finales, 30 medals</h3>
-        <p>Miss the tower completely and you lose a life. Lose all three and the top of your tower tips over and goes out with a bang, one of five ways: a fireball, fireworks, a shockwave, a burst of confetti or a round of popcorn. Along the way, earn 30 medals in bronze, silver and gold, in either mode: round coins for towers of 5, 10, 15 … 100 bars, and star-edged seals for 3, 6, 9 … 30 perfects in a row. Medals won mid-run just chime softly and wait for you on the game-over card.</p>
-      </div>
-    </div>
+    <video id="trailer-video" muted autoplay loop playsinline controls preload="metadata" poster="assets/trailer-poster.webp" width="720" height="1560">
+      <source src="assets/trailer.mp4" type="video/mp4">
+    </video>
   </div>
 </section>
 
 <section class="band low" id="worlds">
   <div class="wrap stack">
     <h2 class="title">A World for Every Season</h2>
-    <p class="lede">Explore 13 handcrafted worlds, each with its own music, atmosphere, and little surprises to discover.</p>
-    <p class="lede">From floating islands and neon cities to haunted houses and holiday celebrations, every world has something new to see as your tower climbs higher.</p>
-    <p class="lede">Seasonal worlds appear automatically around their holidays, but you can explore any world whenever you like.</p>
+    <p class="lede">13 worlds, each with its own arrangement of one original melody. The holiday worlds come out in their season, and you can pick any world any time.</p>
     <div class="worlds">
       <article class="box world">
         <img src="assets/worlds/classic.webp" alt="Sky Islands: a short tower on a floating island, a kite and tractors in the countryside far below" width="660" height="1434" loading="lazy" decoding="async">
         <div class="text"><h3>Sky Islands</h3>
           <div class="tags"><span class="when always">The default</span>
             <button class="song" type="button" data-song="assets/music/classic.m4a" aria-pressed="false" aria-label="Play the song: Sky Islands" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Your climb begins on a little floating island, roots and vines dangling beneath it, a spring spilling off its edge and a kite tugging at its string. Far below, tractors plod across a storybook countryside.</p>
-          <p>Build up through the clouds and drift past islands of cottages, windmills and waterfalls. Watch the sun sink into a sea of clouds, then keep going into a starry night of sky lanterns, shimmering aurora and shooting stars.</p>
+          <p>A storybook floating island with roots and vines dangling beneath it, high over a patchwork countryside.</p>
+          <p><strong>Song:</strong> The theme itself: the waltz every other song is built on.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -582,8 +459,8 @@
         <div class="text"><h3>Toy Kingdom</h3>
           <div class="tags"><span class="when always">Any time</span>
             <button class="song" type="button" data-song="assets/music/toyblock.m4a" aria-pressed="false" aria-label="Play the song: Toy Kingdom" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Step into a kingdom built from toy blocks, where a wooden rainbow arches over the town, toy soldiers drum outside the fort and a freshly wound mouse waddles off toward the gate.</p>
-          <p>Ten seconds in, the toy rocket blasts off its pad, corkscrews into the clouds and comes back down to land, ready to go again. Climb above the block clouds to a sleepy moon, a ringed toy planet and constellations shaped like toys.</p>
+          <p>A nursery playset come to life: painted wooden blocks, a rainbow stacker, toy soldiers and a toy rocket.</p>
+          <p><strong>Song:</strong> A toy-box march in the spirit of Victor Herbert's <i>March of the Toys</i> (1903).</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -592,8 +469,8 @@
         <div class="text"><h3>Synthwave</h3>
           <div class="tags"><span class="when always">Any time</span>
             <button class="song" type="button" data-song="assets/music/neon.m4a" aria-pressed="false" aria-label="Play the song: Synthwave" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Cruise into an 80s sunset, where a striped sun glows over a neon grid, two tall palms frame the view and an arcade lights up the roadside.</p>
-          <p>Every so often the driver strolls out of the arcade, hops into the chrome car, lays down a smoky burnout, spins donuts out on the grid and races off into the city. Climb past the sunset into a violet night of neon clouds, flamingos and a ringed planet.</p>
+          <p>1980s arcade art: a striped sun setting over a neon grid.</p>
+          <p><strong>Song:</strong> French electro in the spirit of Pyramid's <i>The Hall</i> EP.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -602,8 +479,8 @@
         <div class="text"><h3>Cyberpunk</h3>
           <div class="tags"><span class="when always">Any time</span>
             <button class="song" type="button" data-song="assets/music/neon-cyber.m4a" aria-pressed="false" aria-label="Play the song: Cyberpunk" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Welcome to a rain-soaked megacity after dark, where neon signs shimmer on wet streets, a hover taxi idles overhead and searchlights sweep through the smog.</p>
-          <p>Keep an eye on the street racer: moments after you start, it peels out through a puddle and soaks the umbrella walker, then comes back around to do it all again. Climb past glowing towers, drones and sky gardens, up through the smog and into a clear, starry night.</p>
+          <p>1980s tech-noir films: a rain-soaked neon city at night.</p>
+          <p><strong>Song:</strong> Slow tech-noir after those films' scores, with a tenor sax carrying the theme.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -612,8 +489,8 @@
         <div class="text"><h3>Halloween</h3>
           <div class="tags"><span class="when">Oct 1 – Nov 1</span>
             <button class="song" type="button" data-song="assets/music/halloween.m4a" aria-pressed="false" aria-label="Play the song: Halloween" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Welcome to Main Street on Halloween night, where crooked buildings, restless graves, and strange shadows set the scene.</p>
-          <p>Your tower climbs in candy colors (pumpkins, bats, candy corn and crows) past glowing windows into the night. Watch the Headless Horseman race across the moon as you climb through storm clouds and into a surreal sky of upside-down islands.</p>
+          <p>Washington Irving's <i>The Legend of Sleepy Hollow</i>, on a crooked small-town Main Street.</p>
+          <p><strong>Song:</strong> The waltz with spooky effects layered on top, in the spirit of <i>The Haunted Fun House</i>.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -622,8 +499,8 @@
         <div class="text"><h3>Thanksgiving</h3>
           <div class="tags"><span class="when">Nov 2 – 30</span>
             <button class="song" type="button" data-song="assets/music/thanksgiving.m4a" aria-pressed="false" aria-label="Play the song: Thanksgiving" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Settle into a cozy hollow on a late-November afternoon, where a big orange tree lets go of its leaves, turkeys peck about the yard and a white church steeple peeks out from the little town beyond.</p>
-          <p>Out on the lawn, the townsfolk carry out the plates, the turkey and a pie, sit down to supper, clear it away and set the table all over again. Climb as the sun goes down, a pale moon rises and the geese head south.</p>
+          <p>A cozy autumn hollow and a harvest supper on the lawn.</p>
+          <p><strong>Song:</strong> A jazz waltz in the spirit of <i>A Charlie Brown Thanksgiving</i> and Nat King Cole's "Autumn Leaves" records; the melody is our own.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -632,8 +509,8 @@
         <div class="text"><h3>Christmas</h3>
           <div class="tags"><span class="when">Dec 1 – 27</span>
             <button class="song" type="button" data-song="assets/music/christmas.m4a" aria-pressed="false" aria-label="Play the song: Christmas" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Step into Dickens's snowy London at dusk, drawn like a 1950s Christmas card, where candles glow in the windows, gas lamps warm the snow and carolers sing by lantern light.</p>
-          <p>Find Scrooge &amp; Marley's sooty counting house, spot Marley's face in the door knocker and watch the carriage go round and round your tower. Then climb through the snowy night into a golden Christmas morning.</p>
+          <p>Charles Dickens's <i>A Christmas Carol</i>, drawn like a 1950s Christmas card.</p>
+          <p><strong>Song:</strong> A symphonic-pops carol medley in the spirit of Leroy Anderson's <i>A Christmas Festival</i>, built on our theme and public-domain carols.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -642,8 +519,8 @@
         <div class="text"><h3>New Year's Eve</h3>
           <div class="tags"><span class="when">Dec 28 – Jan 6</span>
             <button class="song" type="button" data-song="assets/music/newyear.m4a" aria-pressed="false" aria-label="Play the song: New Year's Eve" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Ring in the New Year at a 1920s Manhattan party, where gold searchlights sweep over Art Deco towers and a mansion party glows across the bay, a green light at the end of its dock.</p>
-          <p>Count down the final minute as the ball drops, then watch the skyline erupt in fireworks at midnight. A champagne tower sparkles on the terrace, giant billboard eyes blink across the water, and the party goes on all night as you climb.</p>
+          <p>F. Scott Fitzgerald's <i>The Great Gatsby</i>: a 1920s Manhattan party with Art Deco towers.</p>
+          <p><strong>Song:</strong> A 1920s foxtrot and Charleston on our own melody, in the spirit of the <i>Jeeves and Wooster</i> theme.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -652,18 +529,18 @@
         <div class="text"><h3>Mardi Gras</h3>
           <div class="tags"><span class="when">The six days to Fat Tuesday</span>
             <button class="song" type="button" data-song="assets/music/mardigras.m4a" aria-pressed="false" aria-label="Play the song: Mardi Gras" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Grab a spot on Bourbon Street, where lacy iron balconies drip with beads and bunting, a family tosses necklaces down to the kids below and the corner café serves up beignets.</p>
-          <p>Within seconds the parade rolls by: a brass band second-lining, papier-mâché floats with masked riders and a jester on stilts. Climb into the night for fireworks over the river as the Carnival Queen and the grinning King Gator rise out of the clouds.</p>
+          <p>New Orleans' French Quarter and its papier-mâché parade floats.</p>
+          <p><strong>Song:</strong> A New Orleans second-line brass band.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
       <article class="box world">
         <img src="assets/worlds/valentines.webp" alt="Valentine's Day: a heart-shaped fountain in a rose garden before Paris rooftops, two swans on the water" width="660" height="1434" loading="lazy" decoding="async">
         <div class="text"><h3>Valentine's Day</h3>
-          <div class="tags"><span class="when">Feb 7 – 15</span>
+          <div class="tags"><span class="when">Around Feb 14</span>
             <button class="song" type="button" data-song="assets/music/valentines.m4a" aria-pressed="false" aria-label="Play the song: Valentine's Day" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Fall for Paris at the golden hour, where your tower rises from a heart-shaped fountain in a rose garden, beside a chocolatier, a florist and a little café.</p>
-          <p>Watch a marble cherub spring to life and pop a heart balloon with an arrow, two swans glide together into a heart, and a couple swap a card at the café. Climb through the evening mist to find Paris standing above the clouds, with fireworks of hearts after dark.</p>
+          <p>Belle Époque Paris and Art Nouveau posters.</p>
+          <p><strong>Song:</strong> A Parisian valse musette, with a slow-dance verse for tenor sax.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -672,8 +549,8 @@
         <div class="text"><h3>St. Patrick's Day</h3>
           <div class="tags"><span class="when">Mar 10 – 18</span>
             <button class="song" type="button" data-song="assets/music/stpatricks.m4a" aria-pressed="false" aria-label="Play the song: St. Patrick's Day" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Wander into the west of Ireland in springtime, drawn like an illuminated manuscript, where a rainbow arches over an old round tower and lambs race through the pasture.</p>
-          <p>A leprechaun hauls his pot of gold to the rainbow's end and keeps a careful eye on it, while an old box player strikes up a jig and raises a toast to the gold. Then climb through a spring shower to a second little rainbow and a starry night.</p>
+          <p>Irish folk tales and the Book of Kells: the west of Ireland in spring.</p>
+          <p><strong>Song:</strong> A pub-session set of Irish jigs.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -682,8 +559,8 @@
         <div class="text"><h3>Independence Day</h3>
           <div class="tags"><span class="when">Jun 28 – Jul 7</span>
             <button class="song" type="button" data-song="assets/music/july4.m4a" aria-pressed="false" aria-label="Play the song: Independence Day" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Celebrate the Fourth on a small-town Main Street straight off a vintage postcard, with flags over the storefronts, bunting on the bandstand and lemonade on the picnic lawn.</p>
-          <p>The parade marches in right away: a drum major and band, a fire-truck float full of waving kids and Uncle Sam on stilts. Climb into a summer sky of towering clouds and stunt planes, then stay for the fireworks blooming over the rooftops after dark.</p>
+          <p>Vintage American postcards of a small-town Fourth of July.</p>
+          <p><strong>Song:</strong> A Sousa-style quickstep in six-eight.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -692,8 +569,8 @@
         <div class="text"><h3>Oktoberfest</h3>
           <div class="tags"><span class="when">Sep 12 – 30</span>
             <button class="song" type="button" data-song="assets/music/oktoberfest.m4a" aria-pressed="false" aria-label="Play the song: Oktoberfest" hidden><span class="disc" aria-hidden="true"><svg viewBox="0 0 12 12"><path class="i-play" d="M3.5 1.5v9l7-4.5z"/><path class="i-pause" d="M2.5 1.5h2.6v9H2.5zM6.9 1.5h2.6v9H6.9z"/></svg></span><span class="label">Play the song</span></button></div>
-          <p>Join the festival on a meadow under the Alps, where your tower stands on the bandstand of a blue-and-white striped tent, the oompah band plays beside it and the stalls are piled with pretzels and gingerbread hearts.</p>
-          <p>Draft horses pull a garlanded barrel wagon past, a waitress carries a tray of foaming steins and a pair of dancers slap out a schuhplattler. Climb as the valley mist rolls in, the Ferris wheel lights up at dusk and a pretzel balloon drifts by on the way to a starry Alpine night.</p>
+          <p>Bavaria's autumn folk festival, in a meadow under the Alps.</p>
+          <p><strong>Song:</strong> Bavarian Blasmusik, the oom-pah brass of a festival tent.</p>
         </div>
         <span class="progress" aria-hidden="true"><i></i></span>
       </article>
@@ -701,45 +578,10 @@
   </div>
 </section>
 
-<section class="band night" id="music">
-  <div class="wrap stack">
-    <h2 class="title">A Song for Every World</h2>
-    <p class="lede">One original melody, reimagined for 13 different worlds. Sky Islands plays it as a sweeping waltz, Toy Kingdom winds it up into a toy-box march, Mardi Gras hands it to a New Orleans brass band, New Year's Eve dances it to a Roaring Twenties foxtrot and St. Patrick's Day kicks it into a set of Irish jigs. Every world has a song of its own, and the music keeps pace with you: build past 40 bars and it speeds up right along with the slider.</p>
-    <p class="lede">Press play on <a href="#worlds">any world above</a> to hear its song.</p>
-  </div>
-</section>
-
-<section class="band paper" id="behind-the-music">
-  <div class="wrap stack">
-    <h2 class="title">Behind the Music</h2>
-    <div class="prose">
-      <p>Every song grows from the same theme, a waltz in six-eight, arranged from scratch for its world. The cartoon worlds are played on real instruments, rendered note by note from CC0 recordings, which are free for anyone to use, and every recording is tuned so the melody sits just right.</p>
-      <p>The two neon worlds run on a synthesizer and drum machine built for the game, and Cyberpunk lays a real tenor sax over them. The same synth supplies the few sounds no recording could, like Halloween's werewolf howl and Toy Kingdom's music box.</p>
-      <p>When the music picks up speed past 40 bars, it climbs step by step, up to about a third faster. Each song is time-stretched as it goes, so the pitch never changes, and each step waits for the next bar line, so the beat never stumbles.</p>
-    </div>
-    <h3>World by world</h3>
-    <dl class="facts">
-      <div><dt>Sky Islands</dt><dd>The theme itself: the waltz every other song is built on.</dd></div>
-      <div><dt>Toy Kingdom</dt><dd>A toy-box march in the spirit of Victor Herbert's <i>March of the Toys</i> (1903): a wind-up key and a music box, a toy-piano march with snare and tuba, a horn-and-euphonium trio, a toy battle and a grandioso.</dd></div>
-      <div><dt>Synthwave</dt><dd>French electro in the spirit of Pyramid's <i>The Hall</i> EP, all on the game's own synths.</dd></div>
-      <div><dt>Cyberpunk</dt><dd>Slow tech-noir in D minor, after the 1980s tech-noir film scores: a real tenor sax carries the theme over synth bass, pads and gated drums, with thunder rolling in the distance.</dd></div>
-      <div><dt>Halloween</dt><dd>The waltz with spooky effects layered on top, like <i>The Haunted Fun House</i>: a werewolf howl, a rattlesnake and a hiss, creaking doors, chains, thunder, owls and a cackle.</dd></div>
-      <div><dt>Thanksgiving</dt><dd>A jazz waltz in the spirits of <i>A Charlie Brown Thanksgiving</i> (a piano trio: bluesy grace notes, block chords, walking bass, a soft kit) and Nat King Cole's "Autumn Leaves" records (a close-miked tenor sax ballad over strings, horn answers). Style only: none of their tunes.</dd></div>
-      <div><dt>Christmas</dt><dd>A symphonic-pops carol medley in the spirit of Leroy Anderson's <i>A Christmas Festival</i>, built on our theme with our own order and links; public-domain carols only.</dd></div>
-      <div><dt>New Year's Eve</dt><dd>A 1920s foxtrot and Charleston in the spirit of the <i>Jeeves and Wooster</i> theme (never its melody), with a party crowd's clinks, corks and cheers, and a ten-second countdown into "Auld Lang Syne".</dd></div>
-      <div><dt>Mardi Gras</dt><dd>A New Orleans second-line brass band: trumpet lead, clarinet, trombone tailgate, sousaphone, banjo-style strums, second-line drums, a tenor sax chorus and a honky-tonk piano break.</dd></div>
-      <div><dt>Valentine's Day</dt><dd>A Parisian valse musette (accordion lead, clarinet and violin answers, guitar) around a slow-dance verse where the tenor sax croons the theme over strings and harp.</dd></div>
-      <div><dt>St. Patrick's Day</dt><dd>A pub-session set of jigs on whistle, fiddle, accordion, bodhrán and guitar.</dd></div>
-      <div><dt>Independence Day</dt><dd>A Sousa-style quickstep in six-eight: cornets with the piccolo above, horn after-beats, a euphonium countermelody, a trio and a grandioso.</dd></div>
-      <div><dt>Oktoberfest</dt><dd>Bavarian brass: tuba oom-pah with euphonium and trombone, a clarinet and trumpet duet, accordion, glockenspiel, a polka, and a toast with the crowd's cheer and clinking steins.</dd></div>
-    </dl>
-  </div>
-</section>
-
 <section class="band sky center" id="get">
   <div class="wrap stack">
     <h2 class="title">Coming soon to iPhone and iPad</h2>
-    <p class="lede">Sway Tower is free. No ads, no tracking, no in-app purchases, not even an account. Every world and every song ships inside the app, so you can play anywhere, Airplane Mode included.</p>
+    <p class="lede">Free, with no ads, no tracking, no in-app purchases and no account. It plays offline.</p>
     <div class="cta" style="justify-content: center">
       <span class="btn soon">Coming to the App Store</span>
     </div>
@@ -762,7 +604,7 @@
 <section class="band paper" id="press">
   <div class="wrap stack">
     <h2 class="title">Press Kit</h2>
-    <p class="lede">Everything you need to share or review Sway Tower. Every picture and every frame here is a real render of the game.</p>
+    <p class="lede">Facts and art for coverage of Sway Tower.</p>
     <dl class="facts">
       <div><dt>Name</dt><dd>Sway Tower</dd></div>
       <div><dt>Developer</dt><dd>Turk White, independent: design, code, art and music</dd></div>
@@ -789,30 +631,26 @@
       <img src="assets/shots/06-newyear.webp" alt="App Store screenshot: Count down to midnight" width="660" height="1434" loading="lazy" decoding="async">
       <img src="assets/shots/10-medals.webp" alt="App Store screenshot: Thirty medals to win, the Achievements screen" width="660" height="1434" loading="lazy" decoding="async">
     </div>
-    <p class="note"><strong>Press, reviewers and creators are welcome to use the wordmark (<a href="assets/logo.png">PNG, transparent</a>), the <a href="assets/trailer.mp4">trailer</a> and the pictures on this page in coverage of Sway Tower.</strong> Please don't alter the logo. For the full kit (the 1024 px icon, the ten App Store screenshots at full size with and without captions, every world in play, the trailer at 886 × 1920), a review copy of the game, or any world's art, write to the address above.</p>
+    <p class="note"><strong>Press, reviewers and creators are welcome to use the wordmark (<a href="assets/logo.png">PNG, transparent</a>), the <a href="assets/trailer.mp4">trailer</a> and the pictures on this page in coverage of Sway Tower.</strong> Please don't alter the logo. For the full kit (the 1024 px icon, the ten App Store screenshots at full size, every world in play, the trailer at 886 × 1920), a review copy of the game, or any world's art, write to the address above.</p>
   </div>
 </section>
 
 <section class="band" id="support">
   <div class="wrap stack narrow">
     <h2 class="title">Support</h2>
-    <p>Sway Tower is made by one person who would love to hear from you. Found a bug, have a question, or want to suggest something? Write to <span class="email"><a href="mailto:swaytower.support@gmail.com">swaytower.support@gmail.com</a><button class="copy" type="button" data-copy="swaytower.support@gmail.com">Copy</button></span> and mention which device you're on and which world you were playing.</p>
+    <p>Questions, bugs or ideas? Write to <span class="email"><a href="mailto:swaytower.support@gmail.com">swaytower.support@gmail.com</a><button class="copy" type="button" data-copy="swaytower.support@gmail.com">Copy</button></span> and say which device and world you were on.</p>
     <div class="faq">
       <details>
-        <summary>How do I play?</summary>
-        <p>Tap PLAY, then tap anywhere to place the bar (or press Space on a keyboard). The bar glides back and forth over your tower, and anything hanging over the edge gets sliced away, so the next bar is narrower. Line it up exactly for a PERFECT: the tower calms down and a lost sliver comes back. Miss the tower completely and you lose one of your 3 lives. The higher you build, the more the tower sways, so time the slide and the sway together.</p>
-      </details>
-      <details>
         <summary>What's the difference between Slide and Drop?</summary>
-        <p>Pick your mode on the title screen. In Slide, the bar glides across the top of the tower and lands right where you tap. In Drop, it glides one bar higher and falls when you tap, landing wherever the swaying top has moved to by then, so aim for where the tower will be. The rules, slices, lives and speed are the same, and each mode keeps its own best.</p>
+        <p>In Slide, the bar lands right where you tap; in Drop, it glides one bar higher and falls when you tap, so aim for where the swaying top will be when it lands. Pick either on the title screen; everything else plays the same, and each mode keeps its own best.</p>
       </details>
       <details>
         <summary>How do I turn off the music, the sound effects or the haptics?</summary>
-        <p>Open Settings with the Skins button on the title screen, or with the Settings button at the top left during a run. Under Sound, switch Music, Effects and Haptics on or off (Haptics appears on devices with a Taptic Engine). Under Motion, Reduce motion stops the screen shake and flashes; Auto follows your device's own Reduce Motion setting. The Sound button on the title screen turns the music and the effects off or on together.</p>
+        <p>Open Settings (the Skins button on the title screen, or the Settings button at the top left during a run) and switch Music, Effects or Haptics under Sound (Haptics appears on devices with a Taptic Engine). The Sound button on the title screen turns the music and the effects off or on together.</p>
       </details>
       <details>
         <summary>How do I pick a world?</summary>
-        <p>Tap Skins on the title screen to see all 13. Auto, the default, brings out each holiday world around its holiday and shows Sky Islands (listed as Classic) the rest of the year. Pick any world to stay there.</p>
+        <p>Tap Skins on the title screen to see all 13. Auto, the default, brings out each holiday world around its holiday and Sky Islands (listed as Classic) the rest of the year; pick any world to stay there.</p>
       </details>
       <!-- GAME CENTER (off in 1.0): uncomment for the version that turns it on (store/LISTING.md)
       <details>
@@ -822,11 +660,11 @@
       -->
       <details>
         <summary>Where are my bests and medals saved?</summary>
-        <p>Right on your device, in the app's own storage. There's no account and nothing is sent anywhere, so they don't move between devices, but your device's own backup (iCloud or a computer) includes them. Deleting the app deletes them.</p>
+        <p>On your device, in the app's own storage, which your device's backup (iCloud or a computer) includes. They stay on that device, and deleting the app deletes them.</p>
       </details>
       <details>
         <summary>Does it need the internet?</summary>
-        <p>Not at all. Every world and every song ships inside the app, so it plays happily in Airplane Mode.</p>
+        <p>No. Every world and every song ships inside the app, so it plays in Airplane Mode.</p>
       </details>
     </div>
   </div>
@@ -884,20 +722,6 @@
 
 <script>
   (function () {
-    var video = document.getElementById("trailer-video");
-    var beats = document.querySelectorAll(".beats button");
-    for (var i = 0; i < beats.length; i++) {
-      beats[i].addEventListener("click", function (e) {
-        var t = parseFloat(e.currentTarget.getAttribute("data-t"));
-        if (!video || isNaN(t)) return;
-        try {
-          video.currentTime = t;
-          var p = video.play();
-          if (p && p.catch) p.catch(function () {});
-        } catch (err) {}
-        if (video.scrollIntoView) video.scrollIntoView({ block: "nearest", behavior: "smooth" });
-      });
-    }
     var copies = document.querySelectorAll(".copy");
     for (var j = 0; j < copies.length; j++) {
       copies[j].addEventListener("click", function (e) {

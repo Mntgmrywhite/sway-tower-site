@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <title>Sway Tower</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Sway Tower: build as high as you can while the tower sways. 13 worlds, each with its own song. Coming soon to iPhone and iPad, free, with no ads, no tracking and no in-app purchases.">
+<meta name="description" content="Sway Tower: build as high as you can while the tower sways. 13 worlds, each with its own song. Coming soon to iPhone and iPad: $1.99 once, with no ads, no tracking and no in-app purchases.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#3f8fe8">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sway Tower">
-<meta property="og:description" content="Build as high as you can before it topples. A free one-tap stacker with 13 worlds, each with its own song.">
+<meta property="og:description" content="Build as high as you can before it topples. A one-tap stacker with 13 worlds, each with its own song: $1.99 once, with no ads.">
 <link rel="icon" type="image/png" href="assets/icon-32.png">
 <link rel="apple-touch-icon" href="assets/icon-180.png">
 <style>
@@ -166,6 +166,15 @@
   }
   .btn.play:hover { filter: brightness(1.04); }
   .btn.play:active { transform: translateY(4px); box-shadow: inset 0 5px 0 rgba(255, 255, 255, 0.45), inset 0 -7px 0 rgba(0, 0, 0, 0.18), 0 3px 0 var(--ink); }
+  /* The second button beside Play the demo: the same shape in navy, so the gold one leads. */
+  .btn.alt {
+    color: #ffffff;
+    background: linear-gradient(#5f86e6, var(--ui) 45%, var(--ui-deep));
+    text-shadow: 0 2px 0 var(--ink);
+    box-shadow: inset 0 5px 0 rgba(255, 255, 255, 0.25), inset 0 -7px 0 rgba(0, 0, 0, 0.22), 0 7px 0 var(--ink);
+  }
+  .btn.alt:hover { filter: brightness(1.06); }
+  .btn.alt:active { transform: translateY(4px); box-shadow: inset 0 5px 0 rgba(255, 255, 255, 0.25), inset 0 -7px 0 rgba(0, 0, 0, 0.22), 0 3px 0 var(--ink); }
   /* A label, not a button: the App Store badge's place until there is one. */
   .btn.soon {
     min-height: 0;
@@ -182,6 +191,11 @@
     cursor: default;
   }
   .cta { display: flex; flex-wrap: wrap; gap: 18px 16px; align-items: center; }
+  /* The buttons and, under them, the demo's one line (what the demo is, what the full game has). */
+  .cta-block { display: grid; gap: 10px; justify-items: start; }
+  .center .cta-block { justify-items: center; }
+  .demo-note { max-width: 52ch; font-size: 16px; font-weight: 500; }
+  .center .demo-note { margin-inline: auto; }
 
   /* ---- Hero: the day sky, the icon and wordmark, the tower swinging at sunset ---- */
   .sky {
@@ -403,11 +417,15 @@
       <p class="tagline">Build as high as you can before it topples.</p>
       <div class="hero-text">
         <p class="lede">The higher it climbs, the more it sways.</p>
-        <p class="lede"><strong>No ads. No tracking. No in-app purchases.</strong></p>
+        <p class="lede"><strong>$1.99 once. No ads. No tracking. No in-app purchases.</strong></p>
       </div>
-      <div class="cta">
-        <a class="btn play" href="#trailer">Watch the trailer</a>
-        <span class="btn soon">Coming soon to iPhone and iPad.</span>
+      <div class="cta-block">
+        <div class="cta">
+          <a class="btn play" href="play/">Play the demo</a>
+          <a class="btn alt" href="#trailer">Watch the trailer</a>
+          <span class="btn soon">Coming soon to iPhone and iPad.</span>
+        </div>
+        <p class="demo-note">Slide mode, three worlds, in your browser. The full game: three modes, 13 worlds, 123 medals.</p>
       </div>
     </div>
     <figure class="phone swaying">
@@ -581,9 +599,13 @@
 <section class="band sky center" id="get">
   <div class="wrap stack">
     <h2 class="title">Coming soon to iPhone and iPad</h2>
-    <p class="lede">Free, with no ads, no tracking, no in-app purchases and no account. It plays offline.</p>
-    <div class="cta" style="justify-content: center">
-      <span class="btn soon">Coming to the App Store</span>
+    <p class="lede">$1.99 once, with no ads, no coins, no tracking, no in-app purchases, no subscription and no account. It plays offline.</p>
+    <div class="cta-block">
+      <div class="cta" style="justify-content: center">
+        <a class="btn play" href="play/">Play the demo</a>
+        <span class="btn soon">Coming to the App Store</span>
+      </div>
+      <p class="demo-note">Slide mode, three worlds, in your browser. The full game: three modes, 13 worlds, 123 medals.</p>
     </div>
   </div>
   <svg class="clouds" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
@@ -610,11 +632,11 @@
       <div><dt>Developer</dt><dd>Turk White, independent: design, code, art and music</dd></div>
       <div><dt>Platforms</dt><dd>iPhone and iPad, iOS 15 or later (portrait, full screen)</dd></div>
       <div><dt>Release</dt><dd>Coming to the App Store</dd></div>
-      <div><dt>Price</dt><dd>Free. No ads, no in-app purchases</dd></div>
+      <div><dt>Price</dt><dd>$1.99 once. No ads, no coins, no in-app purchases, no subscription</dd></div>
       <div><dt>Category</dt><dd>Games › Arcade (Casual), rated 12+ (13+ on iOS 26 and later)</dd></div>
       <div><dt>Worlds</dt><dd>13, each with its own song: Sky Islands, Toy Kingdom, Synthwave, Cyberpunk, and nine holidays from Halloween to Oktoberfest</dd></div>
       <!-- GAME CENTER (off at launch): uncomment for the version that turns it on (store/LISTING.md)
-      <div><dt>Game Center</dt><dd>Optional: leaderboards for Slide, Drop and Shift, and 54 of the 123 medals as achievements</dd></div>
+      <div><dt>Game Center</dt><dd>Optional: leaderboards for Slide, Drop and Grow, and 54 of the 123 medals as achievements</dd></div>
       -->
       <div><dt>Privacy</dt><dd>No data collected: no account, no analytics, no ads, no tracking; plays offline</dd></div>
       <div><dt>Contact</dt><dd><span class="email"><a href="mailto:swaytower.support@gmail.com">swaytower.support@gmail.com</a><button class="copy" type="button" data-copy="swaytower.support@gmail.com">Copy</button></span></dd></div>
@@ -641,8 +663,8 @@
     <p>Questions, bugs or ideas? Write to <span class="email"><a href="mailto:swaytower.support@gmail.com">swaytower.support@gmail.com</a><button class="copy" type="button" data-copy="swaytower.support@gmail.com">Copy</button></span> and say which device and world you were on.</p>
     <div class="faq">
       <details>
-        <summary>What are Slide, Drop and Shift?</summary>
-        <p>In Slide, the bar lands right where you tap; in Drop, it glides one bar higher and falls when you tap, so aim for where the swaying top will be when it lands. Shift lands it like Slide, and the bars shift with the sway: a perfect pins its bar, and a bar that slides off the top costs a life. Pick one on the title screen; each mode keeps its own best.</p>
+        <summary>What are Slide, Drop and Grow?</summary>
+        <p>In Slide, the bar lands right where you tap; in Drop, it glides one bar higher and falls when you tap, so aim for where the swaying top will be when it lands. Grow lands it like Slide, and the bars start as a sliver: every perfect widens the next bar, up to the full width. Pick one on the title screen; each mode keeps its own best.</p>
       </details>
       <details>
         <summary>How do I turn off the music, the sound effects or the haptics?</summary>
@@ -655,7 +677,7 @@
       <!-- GAME CENTER (off at launch): uncomment for the version that turns it on (store/LISTING.md)
       <details>
         <summary>Do I need Game Center?</summary>
-        <p>No. Game Center is optional: the game offers to sign you in once, after your first PLAY, and plays exactly the same without it. If you sign in, your best runs go on the Slide, Drop and Shift leaderboards and your medals show as achievements. You can sign in later from Settings, or sign out in your device's Settings › Game Center.</p>
+        <p>No. Game Center is optional: the game offers to sign you in once, after your first PLAY, and plays exactly the same without it. If you sign in, your best runs go on the Slide, Drop and Grow leaderboards and your medals show as achievements. You can sign in later from Settings, or sign out in your device's Settings › Game Center.</p>
       </details>
       -->
       <details>
